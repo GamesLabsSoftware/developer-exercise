@@ -32,6 +32,7 @@ public class ComponentRegistry {
      * Loads all components
      */
     public void load() {
+        componentList.forEach(component -> component.initialize(this));
         componentList.forEach(Component::onLoad);
     }
 

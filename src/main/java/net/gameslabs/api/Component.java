@@ -8,6 +8,7 @@ import java.util.*;
 public abstract class Component {
 
     private Map<Class, List<EventMethod>> registeredEvents;
+    private ComponentRegistry registry;
 
     public Component() {
         registeredEvents = new HashMap<>();
@@ -19,6 +20,18 @@ public abstract class Component {
 
     public final List<EventMethod> getEvents(Event event) {
         return registeredEvents.getOrDefault(event.getClass(), Collections.emptyList());
+    }
+
+    /**
+     * Send an event
+     * @param event
+     */
+    protected final void send(Event event) {
+        registry.sendEvent(event);
+    }
+
+    public final void initialize(ComponentRegistry registry) {
+        this.registry = registry;
     }
 
     /**
