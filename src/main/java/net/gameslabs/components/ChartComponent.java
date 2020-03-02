@@ -1,7 +1,6 @@
 package net.gameslabs.components;
 
 import net.gameslabs.api.Component;
-import net.gameslabs.api.Event;
 import net.gameslabs.api.Player;
 import net.gameslabs.events.GetPlayerLevel;
 import net.gameslabs.events.GetXPForLevelEvent;
