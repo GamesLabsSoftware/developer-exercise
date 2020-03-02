@@ -33,7 +33,7 @@ public class Assignment {
     }
 
     private void runChecks() {
-        if (getLevel(Skill.EXPLORATION) != 1) throw new AssignmentFailed("Construction XP should be set to level 1");
+        if (getLevel(Skill.EXPLORATION) != 1) throw new AssignmentFailed("Exploration XP should be set to level 1");
         if (getLevel(Skill.CONSTRUCTION) != 2) throw new AssignmentFailed("Construction XP should be set to level 2");
     }
 
