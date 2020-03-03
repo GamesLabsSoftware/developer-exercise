@@ -6,6 +6,7 @@ import net.gameslabs.api.Player;
 import net.gameslabs.components.ChartComponent;
 import net.gameslabs.events.GetPlayerLevelEvent;
 import net.gameslabs.events.GiveXpEvent;
+import net.gameslabs.events.Items.HasItemEvent;
 import net.gameslabs.implem.PlayerImplem;
 
 import java.util.Arrays;
@@ -33,14 +34,26 @@ public class Assignment {
     }
 
     private void runChecks() {
-        if (getLevel(Skill.EXPLORATION) != 1) throw new AssignmentFailed("Exploration XP should be set to level 1");
-        if (getLevel(Skill.CONSTRUCTION) != 2) throw new AssignmentFailed("Construction XP should be set to level 2");
+        if (getLevel(Skill.EXPLORATION) != 1)
+            throw new AssignmentFailed("Exploration XP should be set to level 1");
+
+        if (getLevel(Skill.CONSTRUCTION) != 2)
+            throw new AssignmentFailed("Construction XP should be set to level 2");
+
+        if (!hasItem(12, 34))
+            throw new AssignmentFailed("Player should have 34 items with id 12");
     }
 
     private int getLevel(Skill skill) {
         GetPlayerLevelEvent getPlayerLevel = new GetPlayerLevelEvent(mainPlayer, skill);
         registry.sendEvent(getPlayerLevel);
         return getPlayerLevel.getLevel();
+    }
+
+    private boolean hasItem(int id, int amount) {
+        HasItemEvent hasItemEvent = new HasItemEvent(mainPlayer, id, amount);
+        registry.sendEvent(hasItemEvent);
+        return hasItemEvent.getResult();
     }
 
     public void log(Object ... arguments) {

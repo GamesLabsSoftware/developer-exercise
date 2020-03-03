@@ -1,5 +1,6 @@
 package net.gameslabs.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Inventory {
@@ -9,10 +10,10 @@ public class Inventory {
     private List<ItemSlot> itemSlots;
 
     public Inventory() {
-
+        itemSlots = new ArrayList<>();
     }
 
-    private boolean hasItem(int id) {
+    public boolean hasItem(int id) {
         ItemSlot existing = itemSlots
                 .stream()
                 .filter(i -> i.getId() == id)
@@ -22,7 +23,7 @@ public class Inventory {
         return existing != null;
     }
 
-    private boolean hasItem(int id, int amount) {
+    public boolean hasItem(int id, int amount) {
         int itemCount = itemSlots
                 .stream()
                 .filter(i -> i.getId() == id)
