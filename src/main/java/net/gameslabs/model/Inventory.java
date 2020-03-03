@@ -7,6 +7,10 @@ public class Inventory {
 
     // I've taken some lazy liberties here, sorry :D
     private final int INVENTORY_SIZE = 36;
+    
+    // How do we best manage whether a slot is empty?
+    // Official runescape client uses -1 for id when a slot is empty, but never
+    // liked this approach, feels lazy, but null items aren't really any better
     private List<ItemSlot> itemSlots;
 
     public Inventory() {

@@ -11,11 +11,6 @@ import java.util.List;
 
 public class MyInventoryComponent extends Component {
 
-    // How do we best manage whether a slot is empty?
-    // Official runescape client uses -1 for id when a slot is empty, but never
-    // liked this approach, feels lazy, but null items aren't really any better
-    private List<ItemSlot> inventory;
-
     @Override
     public void onLoad() {
         registerEvent(GiveItemEvent.class, this::giveItem);
@@ -25,7 +20,9 @@ public class MyInventoryComponent extends Component {
 
     private void giveItem(GiveItemEvent event) {
         Inventory inventory = event.getPlayer().getInventory();
-        event.setResult(inventory.giveItem(event.getId(), event.getAmount()));
+        if(!inventory.giveItem(event.getId(), event.getAmount())) {
+            event.setCancelled(true);
+        }
     }
 
     private void hasItem(HasItemEvent event) {
@@ -35,7 +32,9 @@ public class MyInventoryComponent extends Component {
 
     private void removeItem(RemoveItemEvent event) {
         Inventory inventory = event.getPlayer().getInventory();
-        event.setResult(inventory.removeItem(event.getId(), event.getAmount()));
+        if (!inventory.removeItem(event.getId(), event.getAmount())) {
+            event.setCancelled(true);
+        }
     }
 
     @Override
