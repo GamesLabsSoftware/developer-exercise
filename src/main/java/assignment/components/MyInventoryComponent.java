@@ -24,7 +24,8 @@ public class MyInventoryComponent extends Component {
     }
 
     private void giveItem(GiveItemEvent event) {
-
+        Inventory inventory = event.getPlayer().getInventory();
+        event.setResult(inventory.giveItem(event.getId(), event.getAmount()));
     }
 
     private void hasItem(HasItemEvent event) {
