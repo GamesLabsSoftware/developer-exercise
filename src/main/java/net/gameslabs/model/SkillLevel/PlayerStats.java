@@ -1,4 +1,4 @@
-package net.gameslabs.model;
+package net.gameslabs.model.SkillLevel;
 
 import java.util.EnumMap;
 import java.util.Map;

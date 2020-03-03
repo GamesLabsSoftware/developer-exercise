@@ -1,8 +1,8 @@
-package net.gameslabs.events;
+package net.gameslabs.events.SkillLevel;
 
 import net.gameslabs.api.Player;
 import net.gameslabs.api.PlayerEvent;
-import net.gameslabs.model.Skill;
+import net.gameslabs.model.SkillLevel.Skill;
 
 public class GetPlayerLevelEvent extends PlayerEvent {
     private final Skill skill;

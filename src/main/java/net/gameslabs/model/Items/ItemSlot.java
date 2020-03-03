@@ -1,4 +1,4 @@
-package net.gameslabs.model;
+package net.gameslabs.model.Items;
 
 public class ItemSlot {
     private int id;
