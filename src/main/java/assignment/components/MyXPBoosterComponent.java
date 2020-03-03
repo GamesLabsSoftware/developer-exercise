@@ -1,9 +1,7 @@
 package assignment.components;
 
 import net.gameslabs.api.Component;
-import net.gameslabs.api.Player;
 import net.gameslabs.events.GiveXpEvent;
-import net.gameslabs.model.PlayerStats;
 import net.gameslabs.model.Skill;
 
 public class MyXPBoosterComponent extends Component
