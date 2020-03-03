@@ -78,6 +78,9 @@ public class Assignment {
 
         if (getXp(mainPlayer, Skill.MINING) != 300)
             throw new AssignmentFailed("Main player should have had 300 xp");
+
+        if (getLevel(mainPlayer, Skill.MINING) != 6)
+            throw new AssignmentFailed("Main player should have level 6 mining");
     }
 
     private int getLevel(Player player, Skill skill) {
