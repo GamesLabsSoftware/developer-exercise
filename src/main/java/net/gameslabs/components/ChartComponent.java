@@ -2,10 +2,10 @@ package net.gameslabs.components;
 
 import net.gameslabs.api.Component;
 import net.gameslabs.api.Player;
-import net.gameslabs.events.GetPlayerLevelEvent;
-import net.gameslabs.events.GetXPForLevelEvent;
-import net.gameslabs.events.GiveXpEvent;
-import net.gameslabs.model.PlayerStats;
+import net.gameslabs.events.SkillLevel.GetPlayerLevelEvent;
+import net.gameslabs.events.SkillLevel.GetXPForLevelEvent;
+import net.gameslabs.events.SkillLevel.GiveXpEvent;
+import net.gameslabs.model.SkillLevel.PlayerStats;
 
 import java.util.HashMap;
 import java.util.Map;

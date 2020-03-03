@@ -1,7 +1,7 @@
 package net.gameslabs.implem;
 
 import net.gameslabs.api.Player;
-import net.gameslabs.model.Inventory;
+import net.gameslabs.model.Items.Inventory;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package net.gameslabs.model;
+package net.gameslabs.model.Items;
 
 import java.util.ArrayList;
 import java.util.List;

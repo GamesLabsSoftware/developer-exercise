@@ -1,4 +1,4 @@
-package net.gameslabs.events;
+package net.gameslabs.events.SkillLevel;
 
 import net.gameslabs.api.Event;
 

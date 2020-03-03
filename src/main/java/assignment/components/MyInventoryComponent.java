@@ -4,10 +4,7 @@ import net.gameslabs.api.Component;
 import net.gameslabs.events.Items.GiveItemEvent;
 import net.gameslabs.events.Items.HasItemEvent;
 import net.gameslabs.events.Items.RemoveItemEvent;
-import net.gameslabs.model.Inventory;
-import net.gameslabs.model.ItemSlot;
-
-import java.util.List;
+import net.gameslabs.model.Items.Inventory;
 
 public class MyInventoryComponent extends Component {
 

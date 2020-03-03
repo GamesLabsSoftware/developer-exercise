@@ -1,6 +1,6 @@
 package net.gameslabs.api;
 
-import net.gameslabs.model.Inventory;
+import net.gameslabs.model.Items.Inventory;
 
 public interface Player {
     String getId();

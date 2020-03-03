@@ -4,12 +4,13 @@ import net.gameslabs.api.Component;
 import net.gameslabs.api.ComponentRegistry;
 import net.gameslabs.api.Player;
 import net.gameslabs.components.ChartComponent;
-import net.gameslabs.events.GetPlayerLevelEvent;
-import net.gameslabs.events.GiveXpEvent;
+import net.gameslabs.events.SkillLevel.GetPlayerLevelEvent;
+import net.gameslabs.events.SkillLevel.GiveXpEvent;
 import net.gameslabs.events.Items.GiveItemEvent;
 import net.gameslabs.events.Items.HasItemEvent;
 import net.gameslabs.events.Items.RemoveItemEvent;
 import net.gameslabs.implem.PlayerImplem;
+import net.gameslabs.model.SkillLevel.Skill;
 
 import java.util.Arrays;
 
