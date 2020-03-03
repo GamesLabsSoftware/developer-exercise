@@ -14,19 +14,20 @@ public class Inventory {
     }
 
     public boolean giveItem(int id, int amount) {
-        // we really shouldn't be returning a result, instead we should
-        // be throwing if something goes wrong, but hey ho
+        // we really shouldn't be returning a result for these, instead we should
+        // be throwing an exception if something goes wrong, but hey ho
         if (itemSlots.size() == INVENTORY_SIZE)
+            return false;
+
+        if (amount <= 0)
             return false;
 
         ItemSlot existing = getFirstSlotWithItem(id);
 
-        if (existing == null)
-        {
+        if (existing == null) {
             itemSlots.add(new ItemSlot(id, amount));
         }
-        else
-        {
+        else {
             existing.setAmount(existing.getAmount() + amount);
         }
 
@@ -41,6 +42,25 @@ public class Inventory {
                 .sum();
 
         return itemCount >= amount;
+    }
+
+    public boolean removeItem(int id, int amount) {
+        if (amount <= 0)
+            return false;
+
+        if (!hasItem(id, amount))
+            return false;
+
+        ItemSlot existing = getFirstSlotWithItem(id);
+
+        if (existing == null) {
+            return false;
+        }
+        else {
+            existing.setAmount(existing.getAmount() - amount);
+        }
+
+        return true;
     }
 
     private ItemSlot getFirstSlotWithItem(int id) {

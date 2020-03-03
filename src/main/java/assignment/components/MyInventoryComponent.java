@@ -34,7 +34,8 @@ public class MyInventoryComponent extends Component {
     }
 
     private void removeItem(RemoveItemEvent event) {
-
+        Inventory inventory = event.getPlayer().getInventory();
+        event.setResult(inventory.removeItem(event.getId(), event.getAmount()));
     }
 
     @Override
