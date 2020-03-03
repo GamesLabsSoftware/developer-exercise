@@ -4,7 +4,7 @@ import net.gameslabs.api.Component;
 import net.gameslabs.api.ComponentRegistry;
 import net.gameslabs.api.Player;
 import net.gameslabs.components.ChartComponent;
-import net.gameslabs.events.GetPlayerLevel;
+import net.gameslabs.events.GetPlayerLevelEvent;
 import net.gameslabs.events.GiveXpEvent;
 import net.gameslabs.implem.PlayerImplem;
 
@@ -26,7 +26,7 @@ public class Assignment {
     public final void run() {
         registry.sendEvent(new GiveXpEvent(mainPlayer, Skill.CONSTRUCTION, 25));
         registry.sendEvent(new GiveXpEvent(mainPlayer, Skill.EXPLORATION, 25));
-        GetPlayerLevel getPlayerLevel = new GetPlayerLevel(mainPlayer, Skill.CONSTRUCTION);
+        GetPlayerLevelEvent getPlayerLevel = new GetPlayerLevelEvent(mainPlayer, Skill.CONSTRUCTION);
         log("Player level", mainPlayer, getPlayerLevel.getLevel());
         runChecks();
         registry.unload();
@@ -38,7 +38,7 @@ public class Assignment {
     }
 
     private int getLevel(Skill skill) {
-        GetPlayerLevel getPlayerLevel = new GetPlayerLevel(mainPlayer, skill);
+        GetPlayerLevelEvent getPlayerLevel = new GetPlayerLevelEvent(mainPlayer, skill);
         registry.sendEvent(getPlayerLevel);
         return getPlayerLevel.getLevel();
     }
