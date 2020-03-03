@@ -36,6 +36,7 @@ public class ChartComponent extends Component {
 
     private void onGetPlayerLevel(GetPlayerLevelEvent event) {
         event.setLevel(getLevelFromXp(getStats(event.getPlayer()).getXp(event.getSkill())));
+        event.setXp(getStats(event.getPlayer()).getXp(event.getSkill()));
     }
 
     private int getLevelFromXp(int xp) {

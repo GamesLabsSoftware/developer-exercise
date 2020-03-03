@@ -7,6 +7,7 @@ import net.gameslabs.model.SkillLevel.Skill;
 public class GetPlayerLevelEvent extends PlayerEvent {
     private final Skill skill;
     private int level;
+    private int xp;
 
     public GetPlayerLevelEvent(Player player, Skill skill) {
         super(player);
@@ -21,7 +22,15 @@ public class GetPlayerLevelEvent extends PlayerEvent {
         return level;
     }
 
+    public int getXp() {
+        return xp;
+    }
+
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
     }
 }
