@@ -4,11 +4,11 @@ import net.gameslabs.api.Player;
 import net.gameslabs.api.PlayerEvent;
 import net.gameslabs.model.Skill;
 
-public class GetPlayerLevel extends PlayerEvent {
+public class GetPlayerLevelEvent extends PlayerEvent {
     private final Skill skill;
     private int level;
 
-    public GetPlayerLevel(Player player, Skill skill) {
+    public GetPlayerLevelEvent(Player player, Skill skill) {
         super(player);
         this.skill = skill;
     }
