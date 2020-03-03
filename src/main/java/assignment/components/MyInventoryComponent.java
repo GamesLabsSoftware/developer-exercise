@@ -4,7 +4,7 @@ import net.gameslabs.api.Component;
 import net.gameslabs.events.Items.GiveItemEvent;
 import net.gameslabs.events.Items.HasItemEvent;
 import net.gameslabs.events.Items.RemoveItemEvent;
-import net.gameslabs.model.Item;
+import net.gameslabs.model.ItemSlot;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class MyInventoryComponent extends Component {
     // How do we best manage whether a slot is empty?
     // Official runescape client uses -1 for id when a slot is empty, but never
     // liked this approach, feels lazy, but null items aren't really any better
-    private List<Item> inventory;
+    private List<ItemSlot> inventory;
 
     @Override
     public void onLoad() {
@@ -31,10 +31,6 @@ public class MyInventoryComponent extends Component {
     }
 
     private void removeItemHandler(RemoveItemEvent event) {
-
-    }
-
-    private void hasItem(int id, int amount) {
 
     }
 

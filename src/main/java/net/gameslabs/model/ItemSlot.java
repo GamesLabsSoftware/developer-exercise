@@ -1,10 +1,10 @@
 package net.gameslabs.model;
 
-public class Item {
+public class ItemSlot {
     private int id;
     private int amount;
 
-    public Item(int id, int amount) {
+    public ItemSlot(int id, int amount) {
         this.id = id;
         this.amount = amount;
     }
