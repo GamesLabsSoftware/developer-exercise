@@ -28,7 +28,7 @@ public class Assignment {
     public final void run() {
         registry.sendEvent(new GiveXpEvent(mainPlayer, Skill.CONSTRUCTION, 25));
         registry.sendEvent(new GiveXpEvent(mainPlayer, Skill.EXPLORATION, 25));
-        registry.sendEvent(new GiveItemEvent(mainPlayer, 12, 34));
+        registry.sendEvent(new GiveItemEvent(mainPlayer, 1, 10));
         GetPlayerLevelEvent getPlayerLevel = new GetPlayerLevelEvent(mainPlayer, Skill.CONSTRUCTION);
         log("Player level", mainPlayer, getPlayerLevel.getLevel());
         runChecks();
@@ -42,8 +42,11 @@ public class Assignment {
         if (getLevel(Skill.CONSTRUCTION) != 2)
             throw new AssignmentFailed("Construction XP should be set to level 2");
 
-        if (!hasItem(12, 34))
-            throw new AssignmentFailed("Player should have 34 items with id 12");
+        if (!hasItem(1, 10))
+            throw new AssignmentFailed("Player should have 10 items with id 1");
+
+        if (hasItem(2, 1))
+            throw new AssignmentFailed("Player should have not have any items with id 2");
     }
 
     private int getLevel(Skill skill) {
