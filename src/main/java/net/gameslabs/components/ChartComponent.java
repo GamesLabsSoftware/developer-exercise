@@ -2,7 +2,7 @@ package net.gameslabs.components;
 
 import net.gameslabs.api.Component;
 import net.gameslabs.events.GetPlayerLevelEvent;
-import net.gameslabs.events.GetXPForLevelEvent;
+import net.gameslabs.events.GetExpForLevelEvent;
 import net.gameslabs.events.GiveExpToPlayerEvent;
 
 public class ChartComponent extends Component {
@@ -13,12 +13,12 @@ public class ChartComponent extends Component {
 
     @Override
     public void onLoad() {
-        registerEvent(GetXPForLevelEvent.class, this::onGetXPForLevel);
+        registerEvent(GetExpForLevelEvent.class, this::onGetXPForLevel);
         registerEvent(GiveExpToPlayerEvent.class, this::onGiveXPToPlayer);
         registerEvent(GetPlayerLevelEvent.class, this::onGetPlayerLevel);
     }
 
-    private void onGetXPForLevel(GetXPForLevelEvent event) {
+    private void onGetXPForLevel(GetExpForLevelEvent event) {
         event.setExp(event.getLevel() * XP_STEP);
     }
 

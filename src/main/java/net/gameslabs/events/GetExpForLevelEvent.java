@@ -2,11 +2,11 @@ package net.gameslabs.events;
 
 import net.gameslabs.api.Event;
 
-public class GetXPForLevelEvent extends Event {
+public class GetExpForLevelEvent extends Event {
     private final int level;
     private int exp;
 
-    public GetXPForLevelEvent(int level) {
+    public GetExpForLevelEvent(int level) {
         this.level = level;
         this.exp = 0;
     }
