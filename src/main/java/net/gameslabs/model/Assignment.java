@@ -26,8 +26,10 @@ public class Assignment {
     public final void run() {
         REGISTRY.sendEvent(new GiveXPToPlayerEvent(MAIN_PLAYER, Skill.CONSTRUCTION, 25));
         REGISTRY.sendEvent(new GiveXPToPlayerEvent(MAIN_PLAYER, Skill.EXPLORATION, 25));
-        GetPlayerLevelEvent getPlayerLevel = new GetPlayerLevelEvent(MAIN_PLAYER, Skill.CONSTRUCTION);
-        log("Player level", MAIN_PLAYER, getPlayerLevel.getLevel());
+
+        log(MAIN_PLAYER);
+        log("CONSTRUCTION: " + MAIN_PLAYER.getLevel(REGISTRY, Skill.CONSTRUCTION));
+        log("EXPLORATION: " + MAIN_PLAYER.getLevel(REGISTRY, Skill.EXPLORATION));
         runChecks();
         REGISTRY.unload();
     }

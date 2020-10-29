@@ -1,6 +1,9 @@
 package net.gameslabs.implem;
 
+import net.gameslabs.api.ComponentRegistry;
 import net.gameslabs.api.Player;
+import net.gameslabs.events.GetPlayerLevelEvent;
+import net.gameslabs.model.Skill;
 
 import java.util.Objects;
 
@@ -40,11 +43,19 @@ public class PlayerImplem implements Player {
 
     @Override
     public String toString() {
-        return "(" + id + ", " + name + ")";
+        return id + ": " + name;
     }
 
     private static int players;
     public static Player newPlayer(String name) {
-        return new PlayerImplem("player-" + (++players), name);
+        return new PlayerImplem("PLAYER-" + (++players), name);
+    }
+
+    @Override
+    public int getLevel(ComponentRegistry registry, Skill skill) {
+        GetPlayerLevelEvent getPlayerLevel = new GetPlayerLevelEvent(this, skill);
+        registry.sendEvent(getPlayerLevel);
+
+        return getPlayerLevel.getLevel();
     }
 }
