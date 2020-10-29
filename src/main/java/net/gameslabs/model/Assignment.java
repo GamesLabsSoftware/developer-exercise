@@ -4,7 +4,7 @@ import net.gameslabs.api.Component;
 import net.gameslabs.api.ComponentRegistry;
 import net.gameslabs.api.Player;
 import net.gameslabs.components.ChartComponent;
-import net.gameslabs.events.GiveXPToPlayerEvent;
+import net.gameslabs.events.GiveExpToPlayerEvent;
 import net.gameslabs.implem.PlayerImplem;
 
 import java.util.Arrays;
@@ -22,32 +22,13 @@ public class Assignment {
     }
 
     public final void run() {
-        REGISTRY.sendEvent(new GiveXPToPlayerEvent(MAIN_PLAYER, Skills.CONSTRUCTION, 25));
-        REGISTRY.sendEvent(new GiveXPToPlayerEvent(MAIN_PLAYER, Skills.EXPLORATION, 25));
+        REGISTRY.sendEvent(new GiveExpToPlayerEvent(MAIN_PLAYER, Skills.CONSTRUCTION, 25));
+        REGISTRY.sendEvent(new GiveExpToPlayerEvent(MAIN_PLAYER, Skills.EXPLORATION, 25));
 
-        log(MAIN_PLAYER);
-        logSkill("CONSTRUCTION", Skills.CONSTRUCTION);
-        logSkill("EXPLORATION", Skills.EXPLORATION);
-        runChecks();
-        REGISTRY.unload();
-    }
-
-    private void runChecks() {
+        Helper.log(MAIN_PLAYER);
+        Helper.logSkill(REGISTRY, MAIN_PLAYER, "CONSTRUCTION", Skills.CONSTRUCTION);
+        Helper.logSkill(REGISTRY, MAIN_PLAYER, "EXPLORATION", Skills.EXPLORATION);
         Checker.checkAll(REGISTRY, MAIN_PLAYER);
-    }
-
-    private void logSkill(String skillName, Skills skill) {
-        String out = skillName;
-        out += ": ";
-        out += MAIN_PLAYER.getLevel(REGISTRY, skill);
-        out += " (";
-        out += MAIN_PLAYER.getStats().getXp(skill);
-        out += ")";
-
-        log(out);
-    }
-
-    public void log(Object ... arguments) {
-        System.out.println(Arrays.asList(arguments).toString());
+        REGISTRY.unload();
     }
 }

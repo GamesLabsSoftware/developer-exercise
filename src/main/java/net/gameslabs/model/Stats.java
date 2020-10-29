@@ -3,10 +3,10 @@ package net.gameslabs.model;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class PlayerStats {
+public class Stats {
     private Map<Skills, Integer> xpStats;
 
-    public PlayerStats() {
+    public Stats() {
         xpStats = new EnumMap<>(Skills.class);
     }
 

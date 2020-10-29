@@ -3,13 +3,13 @@ package net.gameslabs.implem;
 import net.gameslabs.api.ComponentRegistry;
 import net.gameslabs.api.Player;
 import net.gameslabs.events.GetPlayerLevelEvent;
-import net.gameslabs.model.PlayerStats;
+import net.gameslabs.model.Stats;
 import net.gameslabs.model.Skills;
 
 import java.util.Objects;
 
 public class PlayerImplem implements Player {
-    private PlayerStats stats;
+    private Stats stats;
 
     private String id;
     private String name;
@@ -62,9 +62,9 @@ public class PlayerImplem implements Player {
     }
 
     @Override
-    public PlayerStats getStats() {
+    public Stats getStats() {
         if (this.stats == null) {
-            this.stats = new PlayerStats();
+            this.stats = new Stats();
         }
 
         return this.stats;

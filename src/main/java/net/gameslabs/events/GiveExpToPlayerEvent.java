@@ -4,25 +4,25 @@ import net.gameslabs.api.Player;
 import net.gameslabs.api.PlayerEvent;
 import net.gameslabs.model.Skills;
 
-public class GiveXPToPlayerEvent extends PlayerEvent {
+public class GiveExpToPlayerEvent extends PlayerEvent {
     private final Skills skill;
-    private int xp;
+    private int exp;
 
-    public GiveXPToPlayerEvent(Player player, Skills skill, int xp) {
+    public GiveExpToPlayerEvent(Player player, Skills skill, int exp) {
         super(player);
         this.skill = skill;
-        this.xp = xp;
+        this.exp = exp;
     }
 
     public Skills getSkill() {
         return skill;
     }
 
-    public int getXp() {
-        return xp;
+    public int getExp() {
+        return exp;
     }
 
-    public void setXp(int xp) {
-        this.xp = xp;
+    public void setExp(int exp) {
+        this.exp = exp;
     }
 }
