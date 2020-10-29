@@ -32,7 +32,6 @@ public class MyXPBoosterComponent extends Component {
 
     public double getXpMultiplier(Skill skill) {
         switch(skill) {
-            case BASE: return this.XP_MULTIPLIER_BASE;
             case CONSTRUCTION: return this.XP_MULTIPLIER_CONSTRUCTION;
             case EXPLORATION: return this.XP_MULTIPLIER_EXPLORATION;
             default: return 0;
@@ -41,9 +40,16 @@ public class MyXPBoosterComponent extends Component {
 
     public void setXpMultiplier(Skill skill, double multiplier) {
         switch(skill) {
-            case BASE: this.XP_MULTIPLIER_BASE = multiplier;
             case CONSTRUCTION: this.XP_MULTIPLIER_CONSTRUCTION = multiplier;
             case EXPLORATION: this.XP_MULTIPLIER_EXPLORATION = multiplier;
         }
+    }
+
+    public double getBaseXpMultiplier() {
+        return this.XP_MULTIPLIER_BASE;
+    }
+
+    public void setBaseXpMultiplier(double multiplier) {
+        this.XP_MULTIPLIER_BASE = multiplier;
     }
 }
