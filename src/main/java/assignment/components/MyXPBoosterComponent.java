@@ -1,7 +1,7 @@
 package assignment.components;
 
 import net.gameslabs.api.Component;
-import net.gameslabs.events.GiveXpEvent;
+import net.gameslabs.events.GiveXPToPlayerEvent;
 import net.gameslabs.model.Skill;
 
 public class MyXPBoosterComponent extends Component {
@@ -11,10 +11,10 @@ public class MyXPBoosterComponent extends Component {
 
     @Override
     public void onLoad() {
-        registerEvent(GiveXpEvent.class, this::onGiveXP);
+        registerEvent(GiveXPToPlayerEvent.class, this::onGiveXP);
     }
 
-    private void onGiveXP(GiveXpEvent event) {
+    private void onGiveXP(GiveXPToPlayerEvent event) {
         double xpMultiplier = 1.0;
         switch(event.getSkill()) {
             case CONSTRUCTION: xpMultiplier = this.XP_MULTIPLIER_CONSTRUCTION; break;
