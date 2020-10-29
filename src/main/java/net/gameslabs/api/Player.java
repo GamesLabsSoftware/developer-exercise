@@ -1,9 +1,11 @@
 package net.gameslabs.api;
 
-import net.gameslabs.model.Skill;
+import net.gameslabs.model.PlayerStats;
+import net.gameslabs.model.Skills;
 
 public interface Player {
     String getId();
     String getName();
-    int getLevel(ComponentRegistry registry, Skill skill);
+    PlayerStats getStats();
+    int getLevel(ComponentRegistry registry, Skills skill);
 }

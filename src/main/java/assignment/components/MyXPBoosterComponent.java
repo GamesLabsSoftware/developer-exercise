@@ -2,7 +2,7 @@ package assignment.components;
 
 import net.gameslabs.api.Component;
 import net.gameslabs.events.GiveXPToPlayerEvent;
-import net.gameslabs.model.Skill;
+import net.gameslabs.model.Skills;
 
 public class MyXPBoosterComponent extends Component {
     private static double XP_MULTIPLIER_BASE = 1.0;
@@ -30,7 +30,7 @@ public class MyXPBoosterComponent extends Component {
         // Do nothing
     }
 
-    public double getXpMultiplier(Skill skill) {
+    public double getXpMultiplier(Skills skill) {
         switch(skill) {
             case CONSTRUCTION: return this.XP_MULTIPLIER_CONSTRUCTION;
             case EXPLORATION: return this.XP_MULTIPLIER_EXPLORATION;
@@ -38,7 +38,7 @@ public class MyXPBoosterComponent extends Component {
         }
     }
 
-    public void setXpMultiplier(Skill skill, double multiplier) {
+    public void setXpMultiplier(Skills skill, double multiplier) {
         switch(skill) {
             case CONSTRUCTION: this.XP_MULTIPLIER_CONSTRUCTION = multiplier;
             case EXPLORATION: this.XP_MULTIPLIER_EXPLORATION = multiplier;

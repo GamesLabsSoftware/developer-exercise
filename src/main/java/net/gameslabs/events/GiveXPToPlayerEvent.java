@@ -2,19 +2,19 @@ package net.gameslabs.events;
 
 import net.gameslabs.api.Player;
 import net.gameslabs.api.PlayerEvent;
-import net.gameslabs.model.Skill;
+import net.gameslabs.model.Skills;
 
 public class GiveXPToPlayerEvent extends PlayerEvent {
-    private final Skill skill;
+    private final Skills skill;
     private int xp;
 
-    public GiveXPToPlayerEvent(Player player, Skill skill, int xp) {
+    public GiveXPToPlayerEvent(Player player, Skills skill, int xp) {
         super(player);
         this.skill = skill;
         this.xp = xp;
     }
 
-    public Skill getSkill() {
+    public Skills getSkill() {
         return skill;
     }
 

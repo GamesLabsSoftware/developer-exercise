@@ -13,10 +13,7 @@ import java.util.Map;
 public class ChartComponent extends Component {
     private static final int XP_STEP = 50;
 
-    private Map<Player, PlayerStats> persistence;
-
     public ChartComponent() {
-        persistence = new HashMap<>();
     }
 
     @Override
@@ -31,20 +28,16 @@ public class ChartComponent extends Component {
     }
 
     private void onGiveXPToPlayer(GiveXPToPlayerEvent event) {
-        getStats(event.getPlayer()).addXp(event.getSkill(), event.getXp());
+        event.getPlayer().getStats().addXp(event.getSkill(), event.getXp());
     }
 
     private void onGetPlayerLevel(GetPlayerLevelEvent event) {
-        int skillXp = getStats(event.getPlayer()).getXp(event.getSkill());
+        int skillXp = event.getPlayer().getStats().getXp(event.getSkill());
         event.setLevel(getLevelFromXp(skillXp));
     }
 
     private int getLevelFromXp(int xp) {
         return 1 + Math.floorDiv(xp, XP_STEP);
-    }
-
-    private PlayerStats getStats(Player player) {
-        return persistence.computeIfAbsent(player, p -> new PlayerStats());
     }
 
     @Override

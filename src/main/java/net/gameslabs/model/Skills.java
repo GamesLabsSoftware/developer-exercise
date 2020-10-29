@@ -1,6 +1,6 @@
 package net.gameslabs.model;
 
-public enum Skill {
+public enum Skills {
     CONSTRUCTION,
     EXPLORATION
 }

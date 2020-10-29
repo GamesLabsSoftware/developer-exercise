@@ -4,21 +4,21 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class PlayerStats {
-    private Map<Skill, Integer> xpStats;
+    private Map<Skills, Integer> xpStats;
 
     public PlayerStats() {
-        xpStats = new EnumMap<>(Skill.class);
+        xpStats = new EnumMap<>(Skills.class);
     }
 
-    public void setXp(Skill skill, int xp) {
+    public void setXp(Skills skill, int xp) {
         xpStats.put(skill, xp);
     }
 
-    public int getXp(Skill skill) {
+    public int getXp(Skills skill) {
         return xpStats.getOrDefault(skill, 0);
     }
 
-    public void addXp(Skill skill, int xp) {
+    public void addXp(Skills skill, int xp) {
         setXp(skill, getXp(skill) + xp);
     }
 }
