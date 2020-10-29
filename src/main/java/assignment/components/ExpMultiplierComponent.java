@@ -5,8 +5,8 @@ import net.gameslabs.events.GiveExpToPlayerEvent;
 import net.gameslabs.model.Skills;
 
 public class ExpMultiplierComponent extends Component {
-    private Skills skill;
-    private double multiplier;
+    private final Skills skill;
+    private final double multiplier;
 
     public ExpMultiplierComponent(double multiplier) {
         this.skill = null; //ExpMultiplier will be applied to all skills
