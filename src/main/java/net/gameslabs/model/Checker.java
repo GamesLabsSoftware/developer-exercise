@@ -16,13 +16,7 @@ public class Checker {
     }
 
     private static void checkLevels() {
-        if (getLevel(Skill.EXPLORATION) != 1) throw new AssignmentFailed("Exploration should be set to level 1");
-        if (getLevel(Skill.CONSTRUCTION) != 2) throw new AssignmentFailed("Construction should be set to level 2");
-    }
-
-    private static int getLevel(Skill skill) {
-        GetPlayerLevelEvent getPlayerLevel = new GetPlayerLevelEvent(MAIN_PLAYER, skill);
-        REGISTRY.sendEvent(getPlayerLevel);
-        return getPlayerLevel.getLevel();
+        if (MAIN_PLAYER.getLevel(REGISTRY, Skill.EXPLORATION) != 1) throw new AssignmentFailed("Exploration should be set to level 1");
+        if (MAIN_PLAYER.getLevel(REGISTRY, Skill.CONSTRUCTION) != 2) throw new AssignmentFailed("Construction should be set to level 2");
     }
 }
