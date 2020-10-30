@@ -9,9 +9,9 @@ import java.util.Arrays;
 public class Helper {
     public static void logSkill(ComponentRegistry registry, IPlayer player, String skillName, Skills skill) {
         String out = skillName;
-        out += ": ";
+        out += ": Level ";
         out += player.getStats().getLevel(skill);
-        out += " (";
+        out += " (exp: ";
         out += player.getStats().getXp(skill);
         out += ")";
 

@@ -1,9 +1,11 @@
-# Developer assignment
-Welcome to the GamesLabs developer assignment. The goal of this assignment is to test your ability to use :
+# 2020 Developer Assessment
+This is an assessment I completed in October 2020. Feel free to browse through my code.
+
+Java game development
+- Java
 - git
 - maven
 - component and event based programming
-- java programming
 - code quality
 - follow vague descriptions
 
@@ -75,6 +77,18 @@ Here is the list of tasks you need to achieve:
 - Add a mining skill and component with different ores. A player should only be able to mine coal at level 5 (meaning a, event needs to be cancelled according to his mining level). A player should receive xp from mining an ore.
     Add new checks in Assignment.java to run checks on the features you have added.
 - Add a unique feature and add this feature to the README with a description of what it is supposed to do and checks in Assignment.
+    (completed, explanation at the bottom)
+    
+    
+#Unique Feature - Health Component
+For my unique feature, I implemented a HealthComponent. 
+
+The HealthComponent allows you to use a lot of new events!
+- DeathEvent
+- DropAllItemsEvent
+- EatFoodEvent
+- ResetExpEvent
+- TakeDamageEvent
 
 ## Publishing
 Fork this repository and add scipio3000 to the repository. PM scipio3000 with the link to your repository once you are done with the assignment

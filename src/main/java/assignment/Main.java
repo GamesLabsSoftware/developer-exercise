@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<Component> components = new ArrayList<>();
 
-        PlayerComponent mainPlayer = PlayerComponent.createPlayer("Player1");
+        PlayerComponent mainPlayer = PlayerComponent.createPlayer("nardnob");
 
         components.add(mainPlayer); //PlayerComponent - handles player functionality
         components.add((InventoryComponent)mainPlayer.getInventory()); //InventoryComponent - gives the player an inventory
