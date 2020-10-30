@@ -3,9 +3,8 @@ package assignment.components;
 import net.gameslabs.api.Component;
 import net.gameslabs.api.ComponentRegistry;
 import net.gameslabs.api.Player;
-import net.gameslabs.events.GetPlayerLevelEvent;
-import net.gameslabs.model.Stats;
 import net.gameslabs.model.Skills;
+import net.gameslabs.model.Stats;
 
 import java.util.Objects;
 
@@ -54,14 +53,6 @@ public class PlayerComponent extends Component implements Player {
     private static int players;
     public static PlayerComponent createPlayer(String name) {
         return new PlayerComponent("PLAYER-" + (++players), name);
-    }
-
-    @Override
-    public int getLevel(ComponentRegistry registry, Skills skill) {
-        GetPlayerLevelEvent getPlayerLevel = new GetPlayerLevelEvent(this, skill);
-        registry.sendEvent(getPlayerLevel);
-
-        return getPlayerLevel.getLevel();
     }
 
     @Override

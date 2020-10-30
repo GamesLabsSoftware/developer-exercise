@@ -1,6 +1,7 @@
 package assignment;
 
 import assignment.components.ExpMultiplierComponent;
+import assignment.components.MiningComponent;
 import assignment.components.PlayerComponent;
 import net.gameslabs.api.Component;
 import net.gameslabs.model.Engine;
@@ -17,6 +18,7 @@ public class Main {
         components.add(mainPlayer);
         components.add(mainPlayer.getInventory());
         components.add(new ExpMultiplierComponent(2, Skills.CONSTRUCTION)); //double construction exp
+        components.add(new MiningComponent());
 
         new Engine(mainPlayer, components).run();
     }

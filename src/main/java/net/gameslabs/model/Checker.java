@@ -13,9 +13,9 @@ public class Checker {
         REGISTRY = registry;
         MAIN_PLAYER = mainPlayer;
 
-        checkLevels();
-        checkPickingUpItems();
-        checkDroppingItems();
+        //checkLevels();
+        //checkPickingUpItems();
+        //checkDroppingItems();
     }
 
     private static void checkPickingUpItems() {
@@ -79,7 +79,7 @@ public class Checker {
     }
 
     private static void checkLevels() {
-        if (MAIN_PLAYER.getLevel(REGISTRY, Skills.EXPLORATION) != 1) throw new AssignmentFailed("Exploration should be set to level 1");
-        if (MAIN_PLAYER.getLevel(REGISTRY, Skills.CONSTRUCTION) != 2) throw new AssignmentFailed("Construction should be set to level 2");
+        if (MAIN_PLAYER.getStats().getLevel(Skills.EXPLORATION) != 1) throw new AssignmentFailed("Exploration should be set to level 1");
+        if (MAIN_PLAYER.getStats().getLevel(Skills.CONSTRUCTION) != 2) throw new AssignmentFailed("Construction should be set to level 2");
     }
 }

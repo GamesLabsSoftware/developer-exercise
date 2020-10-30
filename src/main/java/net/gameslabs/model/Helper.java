@@ -9,7 +9,7 @@ public class Helper {
     public static void logSkill(ComponentRegistry registry, Player player, String skillName, Skills skill) {
         String out = skillName;
         out += ": ";
-        out += player.getLevel(registry, skill);
+        out += player.getStats().getLevel(skill);
         out += " (";
         out += player.getStats().getXp(skill);
         out += ")";
