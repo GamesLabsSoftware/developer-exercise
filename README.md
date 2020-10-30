@@ -92,3 +92,5 @@ The HealthComponent allows you to use a lot of new events!
 
 ## Publishing
 Fork this repository and add scipio3000 to the repository. PM scipio3000 with the link to your repository once you are done with the assignment
+
+![output](https://i.imgur.com/K5DLYdJ.png)
