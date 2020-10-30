@@ -80,7 +80,7 @@ Here is the list of tasks you need to achieve:
     (completed, explanation at the bottom)
     
     
-#Unique Feature - Health Component
+# Unique Feature - Health Component
 For my unique feature, I implemented a HealthComponent. 
 
 The HealthComponent allows you to use a lot of new events!
