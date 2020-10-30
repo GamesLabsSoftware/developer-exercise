@@ -1,5 +1,6 @@
-package net.gameslabs.implem;
+package assignment.components;
 
+import net.gameslabs.api.Component;
 import net.gameslabs.api.ComponentRegistry;
 import net.gameslabs.api.Player;
 import net.gameslabs.events.GetPlayerLevelEvent;
@@ -8,13 +9,15 @@ import net.gameslabs.model.Skills;
 
 import java.util.Objects;
 
-public class PlayerImplem implements Player {
+public class PlayerComponent extends Component implements Player {
     private Stats stats;
 
     private String id;
     private String name;
 
-    private PlayerImplem(String id, String name) {
+    private InventoryComponent inventory = new InventoryComponent(37);
+
+    private PlayerComponent(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -33,7 +36,7 @@ public class PlayerImplem implements Player {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PlayerImplem that = (PlayerImplem) o;
+        PlayerComponent that = (PlayerComponent) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name);
     }
@@ -49,8 +52,8 @@ public class PlayerImplem implements Player {
     }
 
     private static int players;
-    public static Player newPlayer(String name) {
-        return new PlayerImplem("PLAYER-" + (++players), name);
+    public static PlayerComponent createPlayer(String name) {
+        return new PlayerComponent("PLAYER-" + (++players), name);
     }
 
     @Override
@@ -68,5 +71,18 @@ public class PlayerImplem implements Player {
         }
 
         return this.stats;
+    }
+
+    @Override
+    public InventoryComponent getInventory() {
+        return this.inventory;
+    }
+
+    @Override
+    public void onLoad() {
+    }
+
+    @Override
+    public void onUnload() {
     }
 }

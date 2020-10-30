@@ -5,20 +5,22 @@ import net.gameslabs.api.ComponentRegistry;
 import net.gameslabs.api.Player;
 import net.gameslabs.components.ChartComponent;
 import net.gameslabs.events.GiveExpToPlayerEvent;
-import net.gameslabs.implem.PlayerImplem;
+import assignment.components.PlayerComponent;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Assignment {
     protected final ComponentRegistry REGISTRY;
     private final Player MAIN_PLAYER;
 
-    public Assignment(Component ... myComponentsToAdd) {
+    public Assignment(Player mainPlayer, ArrayList<Component> components) {
         REGISTRY = new ComponentRegistry();
-        Arrays.asList(myComponentsToAdd).forEach(REGISTRY::registerComponent);
+        MAIN_PLAYER = mainPlayer;
+
+        components.forEach(REGISTRY::registerComponent);
         REGISTRY.registerComponent(new ChartComponent());
         REGISTRY.load();
-        MAIN_PLAYER = PlayerImplem.newPlayer("MyPlayer");
     }
 
     public final void run() {
@@ -28,6 +30,7 @@ public class Assignment {
         Helper.log(MAIN_PLAYER);
         Helper.logSkill(REGISTRY, MAIN_PLAYER, "CONSTRUCTION", Skills.CONSTRUCTION);
         Helper.logSkill(REGISTRY, MAIN_PLAYER, "EXPLORATION", Skills.EXPLORATION);
+        Helper.log(MAIN_PLAYER.getInventory());
         Checker.checkAll(REGISTRY, MAIN_PLAYER);
         REGISTRY.unload();
     }

@@ -10,9 +10,11 @@ import java.util.ArrayList;
 
 public class InventoryComponent extends Component {
     private ArrayList<InventorySlot> slots;
+    private int size;
 
     public InventoryComponent(int size) {
-        slots = new ArrayList<InventorySlot>(size);
+        this.size = size;
+        this.slots = new ArrayList<InventorySlot>(size);
     }
 
     @Override
@@ -26,11 +28,57 @@ public class InventoryComponent extends Component {
     }
 
     private void onDropItem(DropItemEvent event) {
+        if (event == null || event.getItem() == null || event.getCount() <= 0) {
+            event.setCancelled(true);
+            return;
+        }
 
+        int numToDrop = event.getCount();
+        while (numToDrop > 0) {
+            InventorySlot slot = tryGetSlotContainingItem(event.getItem());
+            if (slot == null) {
+                event.setCancelled(true);
+                return;
+            }
+
+            if (numToDrop > slot.getCount()) {
+                numToDrop -= slot.getCount();
+                slot.drop(slot.getCount());
+            } else {
+                slot.drop(numToDrop);
+                numToDrop = 0;
+            }
+        }
     }
 
     private void onPickupItem(PickupItemEvent event) {
+        if (event == null || event.getItem() == null || event.getCount() <= 0) {
+            event.setCancelled(true);
+            return;
+        }
 
+        int numToAdd = event.getCount();
+        while (numToAdd > 0) {
+            InventorySlot slot = tryGetCompatibleSlot(event.getItem());
+            if (slot == null) {
+                event.setCancelled(true);
+                return;
+            }
+
+            boolean success = false;
+            if (numToAdd > slot.remainingCapacity()) {
+                numToAdd -= slot.remainingCapacity();
+                success = slot.tryAddingItem(event.getItem(), slot.remainingCapacity());
+            } else {
+                success = slot.tryAddingItem(event.getItem(), numToAdd);
+                numToAdd = 0;
+            }
+
+            if (!success) {
+                event.setCancelled(true);
+                return;
+            }
+        }
     }
 
     public InventorySlot tryGetSlotContainingItem(Item item) {
@@ -43,5 +91,36 @@ public class InventoryComponent extends Component {
         }
 
         return null;
+    }
+
+    public InventorySlot tryGetCompatibleSlot(Item item) {
+        //Check for a non-full slot matching the item
+        for (int i = 0; i < slots.size(); i++) {
+            InventorySlot slot = slots.get(i);
+            if (slot.getItem().equals(item) && slot.remainingCapacity() > 0) {
+                return slot;
+            }
+        }
+
+        //Check for an empty slot
+        for (int i = 0; i < slots.size(); i++) {
+            InventorySlot slot = slots.get(i);
+            if (slot.isEmpty()) {
+                return slot;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        String out = "\r\nInventory (size: " + this.size + ")\r\n";
+
+        for (int i = 0; i < this.slots.size(); i++) {
+            out += "Slot " + i + ": " + this.slots.get(i);
+        }
+
+        return out;
     }
 }

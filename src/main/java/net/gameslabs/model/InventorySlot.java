@@ -19,14 +19,18 @@ public class InventorySlot {
     public Item getItem() { return this.item; }
     public int getCount() { return this.count; }
 
-    public boolean tryAddingItem(Item inputItem, int quantity) {
-        boolean slotIsEmpty = this.item == null;
-        if (slotIsEmpty) {
+    public boolean tryAddingItem(Item inputItem, int count) {
+        if (!canHold(count)) {
+            return false;
+        }
+
+        boolean isEmpty = this.item == null;
+        if (isEmpty) {
             addItem(inputItem);
             return true;
         } else {
             boolean slotItemMatchesInput = this.item.equals(inputItem);
-            if (slotItemMatchesInput && canHold(quantity)) {
+            if (slotItemMatchesInput) {
                 addItem(inputItem);
                 return true;
             }
@@ -39,6 +43,18 @@ public class InventorySlot {
         return this.item == null ? false : this.item.equals(item);
     }
 
+    public void drop(int num) {
+        this.count -= num;
+        if (this.count <= 0) {
+            this.item = null;
+            this.count = 0;
+        }
+    }
+
+    public boolean isEmpty() { return this.count == 0 || this.item == null; }
+
+    public int remainingCapacity() { return this.maxSize - this.count; }
+
     private void addItem(Item item) { addItem(item, 1); }
 
     private void addItem(Item item, int count) {
@@ -47,7 +63,6 @@ public class InventorySlot {
     }
 
     private boolean canHold(int num) {
-        int remainingCapacity = this.maxSize - this.count;
-        return num <= remainingCapacity;
+        return num <= remainingCapacity();
     }
 }
