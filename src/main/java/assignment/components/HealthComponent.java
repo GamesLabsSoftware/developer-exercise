@@ -2,6 +2,7 @@ package assignment.components;
 
 import net.gameslabs.api.Component;
 import net.gameslabs.api.IHealth;
+import net.gameslabs.api.IPlayer;
 import net.gameslabs.events.*;
 
 public class HealthComponent extends Component implements IHealth {
@@ -29,6 +30,11 @@ public class HealthComponent extends Component implements IHealth {
     }
 
     @Override
+    public int getMaxHealth() {
+        return this.maxHealth;
+    }
+
+    @Override
     public int getMissingHealth() {
         return this.maxHealth - this.currentHealth;
     }
@@ -40,10 +46,19 @@ public class HealthComponent extends Component implements IHealth {
     }
 
     private void onEatFood(EatFoodEvent event) {
-
+        this.currentHealth += event.getFood().getHealAmount();
+        checkHealthBoundaries(event.getPlayer());
     }
 
     private void onTakeDamage(TakeDamageEvent event) {
+        this.currentHealth -= event.getDamageAmount();
+        checkHealthBoundaries(event.getPlayer());
+    }
 
+    private void checkHealthBoundaries(IPlayer player) {
+        this.currentHealth = Math.min(this.currentHealth, this.maxHealth); //handle having too much health
+        if (this.currentHealth <= 0) { //handle having too little health
+            send(new DeathEvent(player));
+        }
     }
 }

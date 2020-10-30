@@ -34,7 +34,7 @@ public class InventoryComponent extends Component implements IInventory {
 
     @Override
     public String toString() {
-        String out = "\r\nInventory (size: " + this.slots.size() + ")\r\n";
+        String out = "\r\nInventory (Size: " + this.slots.size() + ")\r\n";
 
         for (int i = 0; i < this.slots.size(); i++) {
             out += "Slot " + i + ": " + this.slots.get(i) + "\r\n";

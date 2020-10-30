@@ -4,6 +4,7 @@ import net.gameslabs.api.ComponentRegistry;
 import net.gameslabs.api.IPlayer;
 import net.gameslabs.events.*;
 import net.gameslabs.model.items.CoalOre;
+import net.gameslabs.model.items.McChicken;
 import net.gameslabs.model.items.RuniteOre;
 
 import java.util.ArrayList;
@@ -20,66 +21,68 @@ public class Checker {
         checkPickingUpItems();
         checkDroppingItems();
         checkMining();
+        checkDamage();
+        checkEatingFood();
         checkDeath();
     }
 
     private static void checkPickingUpItems() {
         if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 64) {
-            throw new CheckFailed("Slot 0 should have 64 items");
+            throw new FailedCheck("Slot 0 should have 64 items");
         }
         if (MAIN_PLAYER.getInventory().getSlot(1).getCount() != 3) {
-            throw new CheckFailed("Slot 1 should have 3 items");
+            throw new FailedCheck("Slot 1 should have 3 items");
         }
         if (MAIN_PLAYER.getInventory().getSlot(2).getCount() != 62) {
-            throw new CheckFailed("Slot 2 should have 62 item");
+            throw new FailedCheck("Slot 2 should have 62 item");
         }
 
         REGISTRY.sendEvent(new PickupItemEvent(new CoalOre(), 10));
 
         if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 64) {
-            throw new CheckFailed("Slot 0 should have 64 items");
+            throw new FailedCheck("Slot 0 should have 64 items");
         }
         if (MAIN_PLAYER.getInventory().getSlot(1).getCount() != 13) {
-            throw new CheckFailed("Slot 1 should have 13 items");
+            throw new FailedCheck("Slot 1 should have 13 items");
         }
         if (MAIN_PLAYER.getInventory().getSlot(2).getCount() != 62) {
-            throw new CheckFailed("Slot 2 should have 62 item");
+            throw new FailedCheck("Slot 2 should have 62 item");
         }
 
         REGISTRY.sendEvent(new PickupItemEvent(new RuniteOre(), 100));
 
         if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 64) {
-            throw new CheckFailed("Slot 0 should have 64 items");
+            throw new FailedCheck("Slot 0 should have 64 items");
         }
         if (MAIN_PLAYER.getInventory().getSlot(1).getCount() != 13) {
-            throw new CheckFailed("Slot 1 should have 13 items");
+            throw new FailedCheck("Slot 1 should have 13 items");
         }
         if (MAIN_PLAYER.getInventory().getSlot(2).getCount() != 62) {
-            throw new CheckFailed("Slot 2 should have 62 item");
+            throw new FailedCheck("Slot 2 should have 62 item");
         }
     }
 
     private static void checkDroppingItems() {
         if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 64) {
-            throw new CheckFailed("Slot 0 should have 64 items");
+            throw new FailedCheck("Slot 0 should have 64 items");
         }
         if (MAIN_PLAYER.getInventory().getSlot(1).getCount() != 13) {
-            throw new CheckFailed("Slot 1 should have 13 items");
+            throw new FailedCheck("Slot 1 should have 13 items");
         }
         if (MAIN_PLAYER.getInventory().getSlot(2).getCount() != 62) {
-            throw new CheckFailed("Slot 2 should have 62 item");
+            throw new FailedCheck("Slot 2 should have 62 item");
         }
 
         REGISTRY.sendEvent(new DropItemEvent(new CoalOre(), 65));
 
         if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 0) {
-            throw new CheckFailed("Slot 0 should have 0 items");
+            throw new FailedCheck("Slot 0 should have 0 items");
         }
         if (MAIN_PLAYER.getInventory().getSlot(1).getCount() != 12) {
-            throw new CheckFailed("Slot 1 should have 12 items");
+            throw new FailedCheck("Slot 1 should have 12 items");
         }
         if (MAIN_PLAYER.getInventory().getSlot(2).getCount() != 62) {
-            throw new CheckFailed("Slot 2 should have 62 item");
+            throw new FailedCheck("Slot 2 should have 62 item");
         }
     }
 
@@ -88,10 +91,10 @@ public class Checker {
         REGISTRY.sendEvent(new GiveExpToPlayerEvent(MAIN_PLAYER, Skills.MINING, 10000));
         int actualLevel = MAIN_PLAYER.getStats().getLevel(Skills.MINING);
 
-        if (actualLevel != expectedLevel) throw new CheckFailed("ExpectedLevel: " + expectedLevel + "; ActualLevel: " + actualLevel);
+        if (actualLevel != expectedLevel) throw new FailedCheck("ExpectedLevel: " + expectedLevel + "; ActualLevel: " + actualLevel);
 
         if (Helper.getAllSkills().size() != 3) {
-            throw new CheckFailed("Expected to find 3 skills");
+            throw new FailedCheck("Expected to find 3 skills");
         }
     }
 
@@ -103,10 +106,32 @@ public class Checker {
             REGISTRY.sendEvent(new GatherEvent(new RuniteOre(), MAIN_PLAYER));
         }
         int actualLevel = MAIN_PLAYER.getStats().getLevel(Skills.MINING);
-        if (actualLevel != expectedLevel) throw new CheckFailed("ExpectedLevel: " + expectedLevel + "; ActualLevel: " + actualLevel);
+        if (actualLevel != expectedLevel) throw new FailedCheck("ExpectedLevel: " + expectedLevel + "; ActualLevel: " + actualLevel);
 
         if (!MAIN_PLAYER.getInventory().getSlot(20).getItem().equals(new RuniteOre()) || MAIN_PLAYER.getInventory().getSlot(20).getCount() != 64) {
-            throw new CheckFailed("Slot 20 should have 64 RuniteOre");
+            throw new FailedCheck("Slot 20 should have 64 RuniteOre");
+        }
+    }
+
+    private static void checkDamage() {
+        final int DAMAGE = MAIN_PLAYER.getHealth().getMaxHealth() - 1;
+        int expectedHealth = MAIN_PLAYER.getHealth().getCurrentHealth() - DAMAGE;
+        REGISTRY.sendEvent(new TakeDamageEvent(MAIN_PLAYER, DAMAGE));
+        int actualHealth = MAIN_PLAYER.getHealth().getCurrentHealth();
+
+        if (expectedHealth != actualHealth) {
+            throw new FailedCheck("checkDamage failed. ExpectedHealth: " + expectedHealth + "; ActualHealth: " + actualHealth);
+        }
+    }
+
+    private static void checkEatingFood() {
+        McChicken mcChicken = new McChicken();
+        int expectedHealth = MAIN_PLAYER.getHealth().getCurrentHealth() + mcChicken.getHealAmount();
+        REGISTRY.sendEvent(new EatFoodEvent(MAIN_PLAYER, mcChicken));
+        int actualHealth = MAIN_PLAYER.getHealth().getCurrentHealth();
+
+        if (expectedHealth != actualHealth) {
+            throw new FailedCheck("checkEatingFood failed. ExpectedHealth: " + expectedHealth + "; ActualHealth: " + actualHealth);
         }
     }
 
@@ -115,19 +140,19 @@ public class Checker {
         ArrayList<Skills> skills = Helper.getAllSkills();
         for (int i = 0; i < skills.size(); i++) {
             if (MAIN_PLAYER.getStats().getLevel(skills.get(i)) != 1) {
-                throw new CheckFailed("All skills should be 1 after death");
+                throw new FailedCheck("All skills should be 1 after death");
             }
         }
 
         ArrayList<InventorySlot> slots = MAIN_PLAYER.getInventory().getSlots();
         for (int i = 0; i < slots.size(); i++) {
             if (!slots.get(i).isEmpty()) {
-                throw new CheckFailed("All inventory slots should be empty after death");
+                throw new FailedCheck("All inventory slots should be empty after death");
             }
         }
 
         if (MAIN_PLAYER.getHealth().getMissingHealth() > 0) {
-            throw new CheckFailed("The player should not be missing any health immediately after dying");
+            throw new FailedCheck("The player should not be missing any health immediately after dying");
         }
     }
 }

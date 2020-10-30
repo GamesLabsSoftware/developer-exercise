@@ -51,7 +51,7 @@ public class PlayerComponent extends Component implements IPlayer {
 
     @Override
     public String toString() {
-        return id + ": " + name;
+        return id + ": " + name + " (Health: " + this.health.getCurrentHealth() + "/" + this.health.getMaxHealth() + ")";
     }
 
     private static int players;
