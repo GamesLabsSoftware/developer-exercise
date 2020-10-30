@@ -18,7 +18,8 @@ public class Stats {
 
     public int getLevel(Skills skill) {
         int skillXp = getXp(skill);
-        return getLevelFromXp(skillXp);
+        int level = getLevelFromXp(skillXp);
+        return level;
     }
 
     public static int getLevelFromXp(int xp) {

@@ -4,13 +4,13 @@ package net.gameslabs.api;
  * A player based event
  */
 public class PlayerEvent extends Event {
-    private final Player player;
+    private final IPlayer player;
 
-    public PlayerEvent(Player player) {
+    public PlayerEvent(IPlayer player) {
         this.player = player;
     }
 
-    public Player getPlayer() {
+    public IPlayer getPlayer() {
         return player;
     }
 }

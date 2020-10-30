@@ -1,8 +1,6 @@
 package assignment;
 
-import assignment.components.ExpMultiplierComponent;
-import assignment.components.MiningComponent;
-import assignment.components.PlayerComponent;
+import assignment.components.*;
 import net.gameslabs.api.Component;
 import net.gameslabs.model.Engine;
 import net.gameslabs.model.Skills;
@@ -15,10 +13,11 @@ public class Main {
 
         PlayerComponent mainPlayer = PlayerComponent.createPlayer("Player1");
 
-        components.add(mainPlayer);
-        components.add(mainPlayer.getInventory());
-        components.add(new ExpMultiplierComponent(2, Skills.CONSTRUCTION)); //double construction exp
-        components.add(new MiningComponent());
+        components.add(mainPlayer); //PlayerComponent - handles player functionality
+        components.add((InventoryComponent)mainPlayer.getInventory()); //InventoryComponent - gives the player an inventory
+        components.add((HealthComponent)mainPlayer.getHealth()); //HealthComponent - allows healing, taking damage, and even... death.
+        components.add(new ExpMultiplierComponent(2, Skills.CONSTRUCTION)); //ExpMultiplierComponent - double construction experience
+        components.add(new MiningComponent()); //MiningComponent - allows mining IGatherable items with the GatherEvent
 
         new Engine(mainPlayer, components).run();
     }

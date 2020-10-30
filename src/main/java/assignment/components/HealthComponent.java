@@ -1,11 +1,10 @@
 package assignment.components;
 
 import net.gameslabs.api.Component;
-import net.gameslabs.events.DeathEvent;
-import net.gameslabs.events.EatFoodEvent;
-import net.gameslabs.events.TakeDamageEvent;
+import net.gameslabs.api.IHealth;
+import net.gameslabs.events.*;
 
-public class HealthComponent extends Component {
+public class HealthComponent extends Component implements IHealth {
     private int maxHealth;
     private int currentHealth;
 
@@ -25,7 +24,8 @@ public class HealthComponent extends Component {
     }
 
     private void onDeath(DeathEvent event) {
-
+        send(new DropAllItemsEvent(event.getPlayer()));
+        send(new ResetExpEvent(event.getPlayer()));
     }
 
     private void onEatFood(EatFoodEvent event) {

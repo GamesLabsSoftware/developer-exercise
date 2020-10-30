@@ -1,6 +1,8 @@
 package assignment.components;
 
 import net.gameslabs.api.Component;
+import net.gameslabs.api.IInventory;
+import net.gameslabs.events.DropAllItemsEvent;
 import net.gameslabs.events.DropItemEvent;
 import net.gameslabs.events.PickupItemEvent;
 import net.gameslabs.model.InventorySlot;
@@ -8,17 +10,22 @@ import net.gameslabs.model.Item;
 
 import java.util.ArrayList;
 
-public class InventoryComponent extends Component {
+public class InventoryComponent extends Component implements IInventory {
     private ArrayList<InventorySlot> slots;
+    private final int numSlots;
+    private final int slotSize;
 
     public InventoryComponent(int numSlots, int slotSize) {
-        this.slots = createEmptySlots(numSlots, slotSize);
+        this.numSlots = numSlots;
+        this.slotSize = slotSize;
+        this.slots = createEmptySlots();
     }
 
     @Override
     public void onLoad() {
         registerEvent(DropItemEvent.class, this::onDropItem);
         registerEvent(PickupItemEvent.class, this::onPickupItem);
+        registerEvent(DropAllItemsEvent.class, this::onDropAllItems);
     }
 
     @Override
@@ -36,16 +43,12 @@ public class InventoryComponent extends Component {
         return out;
     }
 
-    public InventorySlot getSlot(int index) {
-        return this.slots.get(index);
+    public ArrayList<InventorySlot> getSlots() {
+        return this.slots;
     }
 
-    private ArrayList<InventorySlot> createEmptySlots(int numSlots, int slotSize) {
-        ArrayList<InventorySlot> emptySlots = new ArrayList<InventorySlot>();
-        for (int i = 0; i < numSlots; i++) {
-            emptySlots.add(new InventorySlot(slotSize));
-        }
-        return emptySlots;
+    public InventorySlot getSlot(int index) {
+        return this.slots.get(index);
     }
 
     private void onDropItem(DropItemEvent event) {
@@ -100,6 +103,18 @@ public class InventoryComponent extends Component {
                 return;
             }
         }
+    }
+
+    private void onDropAllItems(DropAllItemsEvent event) {
+        this.slots = createEmptySlots();
+    }
+
+    private ArrayList<InventorySlot> createEmptySlots() {
+        ArrayList<InventorySlot> emptySlots = new ArrayList<InventorySlot>();
+        for (int i = 0; i < numSlots; i++) {
+            emptySlots.add(new InventorySlot(slotSize));
+        }
+        return emptySlots;
     }
 
     private InventorySlot tryGetSlotContainingItem(Item item) {

@@ -1,7 +1,7 @@
 package assignment.components;
 
 import net.gameslabs.api.Component;
-import net.gameslabs.api.Player;
+import net.gameslabs.api.IPlayer;
 import net.gameslabs.events.GatherEvent;
 import net.gameslabs.events.GiveExpToPlayerEvent;
 import net.gameslabs.events.PickupItemEvent;
@@ -37,7 +37,7 @@ public class MiningComponent extends Component {
         gatherItem(event.getPlayer(), event.getItem());
     }
 
-    private void gatherItem(Player player, IGatherable item) {
+    private void gatherItem(IPlayer player, IGatherable item) {
         //Give the player items and exp
         send(new PickupItemEvent((Item)item, item.getGatherAmount()));
         send(new GiveExpToPlayerEvent(player, item.getRequiredSkill(), item.getExperience()));
