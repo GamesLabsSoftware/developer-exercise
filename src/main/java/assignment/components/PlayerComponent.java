@@ -1,9 +1,7 @@
 package assignment.components;
 
 import net.gameslabs.api.Component;
-import net.gameslabs.api.ComponentRegistry;
 import net.gameslabs.api.Player;
-import net.gameslabs.model.Skills;
 import net.gameslabs.model.Stats;
 
 import java.util.Objects;

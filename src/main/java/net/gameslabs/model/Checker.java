@@ -3,7 +3,11 @@ package net.gameslabs.model;
 import net.gameslabs.api.ComponentRegistry;
 import net.gameslabs.api.Player;
 import net.gameslabs.events.DropItemEvent;
+import net.gameslabs.events.GatherEvent;
+import net.gameslabs.events.GiveExpToPlayerEvent;
 import net.gameslabs.events.PickupItemEvent;
+import net.gameslabs.model.items.CoalOre;
+import net.gameslabs.model.items.RuniteOre;
 
 public class Checker {
     private static ComponentRegistry REGISTRY;
@@ -13,73 +17,92 @@ public class Checker {
         REGISTRY = registry;
         MAIN_PLAYER = mainPlayer;
 
-        //checkLevels();
-        //checkPickingUpItems();
-        //checkDroppingItems();
+        checkLevelsAndExpGain();
+        checkPickingUpItems();
+        checkDroppingItems();
+        checkMining();
     }
 
     private static void checkPickingUpItems() {
-        if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 0) {
-            throw new AssignmentFailed("Slot 0 should be empty");
+        if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 64) {
+            throw new AssignmentFailed("Slot 0 should have 64 items");
         }
-        if (MAIN_PLAYER.getInventory().getSlot(1).getCount() != 5) {
-            throw new AssignmentFailed("Slot 1 should have 5 items");
+        if (MAIN_PLAYER.getInventory().getSlot(1).getCount() != 3) {
+            throw new AssignmentFailed("Slot 1 should have 3 items");
         }
-        if (MAIN_PLAYER.getInventory().getSlot(2).getCount() != 0) {
-            throw new AssignmentFailed("Slot 2 should be empty");
-        }
-
-        REGISTRY.sendEvent(new PickupItemEvent(new Item(), 10));
-
-        if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 0) {
-            throw new AssignmentFailed("Slot 1 should have 0 items");
-        }
-        if (MAIN_PLAYER.getInventory().getSlot(1).getCount() != 15) {
-            throw new AssignmentFailed("Slot 1 should have 15 items");
-        }
-        if (MAIN_PLAYER.getInventory().getSlot(2).getCount() != 0) {
-            throw new AssignmentFailed("Slot 2 should be empty");
+        if (MAIN_PLAYER.getInventory().getSlot(2).getCount() != 62) {
+            throw new AssignmentFailed("Slot 2 should have 62 item");
         }
 
-        REGISTRY.sendEvent(new PickupItemEvent(new Item(), 100));
+        REGISTRY.sendEvent(new PickupItemEvent(new CoalOre(), 10));
 
-        if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 51) {
-            throw new AssignmentFailed("Slot 1 should have 51 items");
+        if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 64) {
+            throw new AssignmentFailed("Slot 0 should have 64 items");
         }
-        if (MAIN_PLAYER.getInventory().getSlot(1).getCount() != 64) {
-            throw new AssignmentFailed("Slot 1 should have 64 items");
+        if (MAIN_PLAYER.getInventory().getSlot(1).getCount() != 13) {
+            throw new AssignmentFailed("Slot 1 should have 13 items");
         }
-        if (MAIN_PLAYER.getInventory().getSlot(2).getCount() != 0) {
-            throw new AssignmentFailed("Slot 2 should be empty");
+        if (MAIN_PLAYER.getInventory().getSlot(2).getCount() != 62) {
+            throw new AssignmentFailed("Slot 2 should have 62 item");
+        }
+
+        REGISTRY.sendEvent(new PickupItemEvent(new RuniteOre(), 100));
+
+        if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 64) {
+            throw new AssignmentFailed("Slot 0 should have 64 items");
+        }
+        if (MAIN_PLAYER.getInventory().getSlot(1).getCount() != 13) {
+            throw new AssignmentFailed("Slot 1 should have 13 items");
+        }
+        if (MAIN_PLAYER.getInventory().getSlot(2).getCount() != 62) {
+            throw new AssignmentFailed("Slot 2 should have 62 item");
         }
     }
 
     private static void checkDroppingItems() {
-        if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 51) {
-            throw new AssignmentFailed("Slot 1 should have 51 items");
+        if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 64) {
+            throw new AssignmentFailed("Slot 0 should have 64 items");
         }
-        if (MAIN_PLAYER.getInventory().getSlot(1).getCount() != 64) {
-            throw new AssignmentFailed("Slot 1 should have 64 items");
+        if (MAIN_PLAYER.getInventory().getSlot(1).getCount() != 13) {
+            throw new AssignmentFailed("Slot 1 should have 13 items");
         }
-        if (MAIN_PLAYER.getInventory().getSlot(2).getCount() != 0) {
-            throw new AssignmentFailed("Slot 2 should be empty");
+        if (MAIN_PLAYER.getInventory().getSlot(2).getCount() != 62) {
+            throw new AssignmentFailed("Slot 2 should have 62 item");
         }
 
-        REGISTRY.sendEvent(new DropItemEvent(new Item(), 52));
+        REGISTRY.sendEvent(new DropItemEvent(new CoalOre(), 65));
 
         if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 0) {
-            throw new AssignmentFailed("Slot 1 should have 0 items");
+            throw new AssignmentFailed("Slot 0 should have 0 items");
         }
-        if (MAIN_PLAYER.getInventory().getSlot(1).getCount() != 63) {
-            throw new AssignmentFailed("Slot 1 should have 63 items");
+        if (MAIN_PLAYER.getInventory().getSlot(1).getCount() != 12) {
+            throw new AssignmentFailed("Slot 1 should have 12 items");
         }
-        if (MAIN_PLAYER.getInventory().getSlot(2).getCount() != 0) {
-            throw new AssignmentFailed("Slot 2 should be empty");
+        if (MAIN_PLAYER.getInventory().getSlot(2).getCount() != 62) {
+            throw new AssignmentFailed("Slot 2 should have 62 item");
         }
     }
 
-    private static void checkLevels() {
-        if (MAIN_PLAYER.getStats().getLevel(Skills.EXPLORATION) != 1) throw new AssignmentFailed("Exploration should be set to level 1");
-        if (MAIN_PLAYER.getStats().getLevel(Skills.CONSTRUCTION) != 2) throw new AssignmentFailed("Construction should be set to level 2");
+    private static void checkLevelsAndExpGain() {
+        int expectedLevel = Stats.getLevelFromXp(10000 + MAIN_PLAYER.getStats().getXp(Skills.MINING));
+        REGISTRY.sendEvent(new GiveExpToPlayerEvent(MAIN_PLAYER, Skills.MINING, 10000));
+        int actualLevel = MAIN_PLAYER.getStats().getLevel(Skills.MINING);
+
+        if (actualLevel != expectedLevel) throw new AssignmentFailed("ExpectedLevel: " + expectedLevel + "; ActualLevel: " + actualLevel);
+    }
+
+    private static void checkMining() {
+        int mineAmount = 1000;
+
+        int expectedLevel = Stats.getLevelFromXp((new RuniteOre()).getExperience() * mineAmount + MAIN_PLAYER.getStats().getXp(Skills.MINING));
+        for (int i = 0; i < mineAmount; i++) {
+            REGISTRY.sendEvent(new GatherEvent(new RuniteOre(), MAIN_PLAYER));
+        }
+        int actualLevel = MAIN_PLAYER.getStats().getLevel(Skills.MINING);
+        if (actualLevel != expectedLevel) throw new AssignmentFailed("ExpectedLevel: " + expectedLevel + "; ActualLevel: " + actualLevel);
+
+        if (!MAIN_PLAYER.getInventory().getSlot(20).getItem().equals(new RuniteOre()) || MAIN_PLAYER.getInventory().getSlot(20).getCount() != 64) {
+            throw new AssignmentFailed("Slot 20 should have 64 RuniteOre");
+        }
     }
 }

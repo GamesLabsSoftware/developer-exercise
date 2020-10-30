@@ -7,10 +7,10 @@ import net.gameslabs.model.Skills;
 public class RuniteOre extends Item implements IGatherable {
     private static final String NAME = "Runite Ore";
     private static final String ID = "RUNITE_ORE";
-    private Skills REQUIRED_SKILL = Skills.MINING;
-    private int REQUIRED_LEVEL = 99;
-    private int EXPERIENCE = 600;
-    private int GATHER_AMOUNT = 1;
+    private static final Skills REQUIRED_SKILL = Skills.MINING;
+    private static final int REQUIRED_LEVEL = 99;
+    private static final int EXPERIENCE = 600;
+    private static final int GATHER_AMOUNT = 1;
 
     @Override
     public String getId() { return this.ID; }

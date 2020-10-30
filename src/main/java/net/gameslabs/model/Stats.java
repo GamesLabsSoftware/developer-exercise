@@ -21,7 +21,7 @@ public class Stats {
         return getLevelFromXp(skillXp);
     }
 
-    private int getLevelFromXp(int xp) {
+    public static int getLevelFromXp(int xp) {
         return 1 + Math.floorDiv(xp, ChartComponent.XP_STEP);
     }
 

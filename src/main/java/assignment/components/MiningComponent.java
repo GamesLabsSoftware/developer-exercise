@@ -1,6 +1,7 @@
 package assignment.components;
 
 import net.gameslabs.api.Component;
+import net.gameslabs.api.Player;
 import net.gameslabs.events.GatherEvent;
 import net.gameslabs.events.GiveExpToPlayerEvent;
 import net.gameslabs.events.PickupItemEvent;
@@ -26,8 +27,6 @@ public class MiningComponent extends Component {
         }
 
         int playerLevel = event.getPlayer().getStats().getLevel(event.getItem().getRequiredSkill());
-        int gatherAmount = event.getItem().getGatherAmount();
-        int experience = event.getItem().getExperience();
 
         //Don't have required mining level
         if (playerLevel < event.getItem().getRequiredLevel()) {
@@ -35,8 +34,12 @@ public class MiningComponent extends Component {
             return;
         }
 
+        gatherItem(event.getPlayer(), event.getItem());
+    }
+
+    private void gatherItem(Player player, IGatherable item) {
         //Give the player items and exp
-        send(new PickupItemEvent((Item)event.getItem(), gatherAmount));
-        send(new GiveExpToPlayerEvent(event.getPlayer(), event.getItem().getRequiredSkill(), experience));
+        send(new PickupItemEvent((Item)item, item.getGatherAmount()));
+        send(new GiveExpToPlayerEvent(player, item.getRequiredSkill(), item.getExperience()));
     }
 }

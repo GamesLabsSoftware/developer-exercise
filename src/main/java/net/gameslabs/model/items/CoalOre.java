@@ -7,10 +7,10 @@ import net.gameslabs.model.Skills;
 public class CoalOre extends Item implements IGatherable {
     private static final String NAME = "Coal Ore";
     private static final String ID = "COAL_ORE";
-    private Skills REQUIRED_SKILL = Skills.MINING;
-    private int REQUIRED_LEVEL = 5;
-    private int EXPERIENCE = 200;
-    private int GATHER_AMOUNT = 6;
+    private static final Skills REQUIRED_SKILL = Skills.MINING;
+    private static final int REQUIRED_LEVEL = 5;
+    private static final int EXPERIENCE = 200;
+    private static final int GATHER_AMOUNT = 6;
 
     @Override
     public String getId() { return this.ID; }
