@@ -23,9 +23,20 @@ public class HealthComponent extends Component implements IHealth {
     public void onUnload() {
     }
 
+    @Override
+    public int getCurrentHealth() {
+        return this.currentHealth;
+    }
+
+    @Override
+    public int getMissingHealth() {
+        return this.maxHealth - this.currentHealth;
+    }
+
     private void onDeath(DeathEvent event) {
         send(new DropAllItemsEvent(event.getPlayer()));
         send(new ResetExpEvent(event.getPlayer()));
+        this.currentHealth = this.maxHealth;
     }
 
     private void onEatFood(EatFoodEvent event) {

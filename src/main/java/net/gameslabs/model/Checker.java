@@ -125,5 +125,9 @@ public class Checker {
                 throw new CheckFailed("All inventory slots should be empty after death");
             }
         }
+
+        if (MAIN_PLAYER.getHealth().getMissingHealth() > 0) {
+            throw new CheckFailed("The player should not be missing any health immediately after dying");
+        }
     }
 }
