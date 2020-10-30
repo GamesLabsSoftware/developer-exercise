@@ -36,6 +36,10 @@ public class InventoryComponent extends Component {
         return out;
     }
 
+    public InventorySlot getSlot(int index) {
+        return this.slots.get(index);
+    }
+
     private ArrayList<InventorySlot> createEmptySlots(int numSlots, int slotSize) {
         ArrayList<InventorySlot> emptySlots = new ArrayList<InventorySlot>();
         for (int i = 0; i < numSlots; i++) {

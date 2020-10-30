@@ -33,12 +33,12 @@ public class InventorySlot {
 
         boolean isEmpty = this.item == null;
         if (isEmpty) {
-            addItem(inputItem, count);
+            setItem(inputItem, count);
             return true;
         } else {
             boolean slotItemMatchesInput = this.item.equals(inputItem);
             if (slotItemMatchesInput) {
-                addItem(inputItem, count);
+                addToItem(count);
                 return true;
             }
         }
@@ -62,7 +62,11 @@ public class InventorySlot {
 
     public int remainingCapacity() { return this.maxSize - this.count; }
 
-    private void addItem(Item item, int count) {
+    private void addToItem(int count) {
+        this.count += count;
+    }
+
+    private void setItem(Item item, int count) {
         this.item = item;
         this.count = count;
     }
