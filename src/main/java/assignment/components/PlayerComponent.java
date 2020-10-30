@@ -15,7 +15,7 @@ public class PlayerComponent extends Component implements Player {
     private String id;
     private String name;
 
-    private InventoryComponent inventory = new InventoryComponent(37);
+    private InventoryComponent inventory = new InventoryComponent(37, 64);
 
     private PlayerComponent(String id, String name) {
         this.id = id;

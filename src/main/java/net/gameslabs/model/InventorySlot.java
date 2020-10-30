@@ -15,6 +15,13 @@ public class InventorySlot {
         this.count = count;
     }
 
+    @Override
+    public String toString() {
+        return isEmpty()
+                ? "Empty"
+                : "'" + this.getItem().getName() + "' x" + this.getCount();
+    }
+
     public int getMaxSize() { return this.maxSize; }
     public Item getItem() { return this.item; }
     public int getCount() { return this.count; }
@@ -26,12 +33,12 @@ public class InventorySlot {
 
         boolean isEmpty = this.item == null;
         if (isEmpty) {
-            addItem(inputItem);
+            addItem(inputItem, count);
             return true;
         } else {
             boolean slotItemMatchesInput = this.item.equals(inputItem);
             if (slotItemMatchesInput) {
-                addItem(inputItem);
+                addItem(inputItem, count);
                 return true;
             }
         }
@@ -54,8 +61,6 @@ public class InventorySlot {
     public boolean isEmpty() { return this.count == 0 || this.item == null; }
 
     public int remainingCapacity() { return this.maxSize - this.count; }
-
-    private void addItem(Item item) { addItem(item, 1); }
 
     private void addItem(Item item, int count) {
         this.item = item;

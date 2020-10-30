@@ -10,11 +10,9 @@ import java.util.ArrayList;
 
 public class InventoryComponent extends Component {
     private ArrayList<InventorySlot> slots;
-    private int size;
 
-    public InventoryComponent(int size) {
-        this.size = size;
-        this.slots = new ArrayList<InventorySlot>(size);
+    public InventoryComponent(int numSlots, int slotSize) {
+        this.slots = createEmptySlots(numSlots, slotSize);
     }
 
     @Override
@@ -25,6 +23,25 @@ public class InventoryComponent extends Component {
 
     @Override
     public void onUnload() {
+    }
+
+    @Override
+    public String toString() {
+        String out = "\r\nInventory (size: " + this.slots.size() + ")\r\n";
+
+        for (int i = 0; i < this.slots.size(); i++) {
+            out += "Slot " + i + ": " + this.slots.get(i) + "\r\n";
+        }
+
+        return out;
+    }
+
+    private ArrayList<InventorySlot> createEmptySlots(int numSlots, int slotSize) {
+        ArrayList<InventorySlot> emptySlots = new ArrayList<InventorySlot>();
+        for (int i = 0; i < numSlots; i++) {
+            emptySlots.add(new InventorySlot(slotSize));
+        }
+        return emptySlots;
     }
 
     private void onDropItem(DropItemEvent event) {
@@ -81,7 +98,7 @@ public class InventoryComponent extends Component {
         }
     }
 
-    public InventorySlot tryGetSlotContainingItem(Item item) {
+    private InventorySlot tryGetSlotContainingItem(Item item) {
         for (int i = 0; i < slots.size(); i++) {
             InventorySlot slot = slots.get(i);
 
@@ -93,11 +110,11 @@ public class InventoryComponent extends Component {
         return null;
     }
 
-    public InventorySlot tryGetCompatibleSlot(Item item) {
+    private InventorySlot tryGetCompatibleSlot(Item item) {
         //Check for a non-full slot matching the item
         for (int i = 0; i < slots.size(); i++) {
             InventorySlot slot = slots.get(i);
-            if (slot.getItem().equals(item) && slot.remainingCapacity() > 0) {
+            if (!slot.isEmpty() && slot.remainingCapacity() > 0 && slot.getItem().equals(item)) {
                 return slot;
             }
         }
@@ -111,16 +128,5 @@ public class InventoryComponent extends Component {
         }
 
         return null;
-    }
-
-    @Override
-    public String toString() {
-        String out = "\r\nInventory (size: " + this.size + ")\r\n";
-
-        for (int i = 0; i < this.slots.size(); i++) {
-            out += "Slot " + i + ": " + this.slots.get(i);
-        }
-
-        return out;
     }
 }

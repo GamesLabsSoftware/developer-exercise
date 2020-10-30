@@ -3,12 +3,12 @@ package net.gameslabs.model;
 public class Item implements IItem {
     @Override
     public String getId() {
-        return null;
+        return "BASE_ITEM";
     }
 
     @Override
     public String getName() {
-        return null;
+        return "BaseItem";
     }
 
     @Override
