@@ -40,8 +40,6 @@ public class HealthComponent extends Component implements IHealth {
     }
 
     private void onDeath(DeathEvent event) {
-        send(new DropAllItemsEvent(event.getPlayer()));
-        send(new ResetExpEvent(event.getPlayer()));
         this.currentHealth = this.maxHealth;
     }
 

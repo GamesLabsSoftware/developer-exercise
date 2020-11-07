@@ -2,7 +2,7 @@ package assignment.components;
 
 import net.gameslabs.api.Component;
 import net.gameslabs.api.IInventory;
-import net.gameslabs.events.DropAllItemsEvent;
+import net.gameslabs.events.DeathEvent;
 import net.gameslabs.events.DropItemEvent;
 import net.gameslabs.events.PickupItemEvent;
 import net.gameslabs.model.InventorySlot;
@@ -25,7 +25,7 @@ public class InventoryComponent extends Component implements IInventory {
     public void onLoad() {
         registerEvent(DropItemEvent.class, this::onDropItem);
         registerEvent(PickupItemEvent.class, this::onPickupItem);
-        registerEvent(DropAllItemsEvent.class, this::onDropAllItems);
+        registerEvent(DeathEvent.class, this::onDeath);
     }
 
     @Override
@@ -105,7 +105,11 @@ public class InventoryComponent extends Component implements IInventory {
         }
     }
 
-    private void onDropAllItems(DropAllItemsEvent event) {
+    private void onDeath(DeathEvent event) {
+        dropAllItems();
+    }
+
+    private void dropAllItems() {
         this.slots = createEmptySlots();
     }
 
