@@ -24,13 +24,11 @@ public class ExpMultiplierComponent extends Component {
     }
 
     private void onGiveExp(GiveExpToPlayerEvent event) {
-        double expMultiplier = 1.0;
-        if(this.skill == null || event.getSkill() == this.skill) {
-            expMultiplier = this.multiplier;
+        boolean applyToAllSkills = this.skill == null;
+        if(applyToAllSkills || event.getSkill() == this.skill) {
+            int exp = (int)Math.ceil(event.getExp() * this.multiplier);
+            event.setExp(exp);
         }
-
-        int exp = (int)Math.ceil(event.getExp() * expMultiplier);
-        event.setExp(exp);
     }
 
     @Override

@@ -24,6 +24,8 @@ public class Checker {
         checkDamage();
         checkEatingFood();
         checkDeath();
+
+        Helper.log("Checks completed.");
     }
 
     private static void checkPickingUpItems() {
