@@ -1,4 +1,4 @@
-package net.gameslabs.components;
+package assignment.components;
 
 import net.gameslabs.api.Component;
 import net.gameslabs.api.IPlayer;
@@ -9,11 +9,8 @@ import net.gameslabs.model.Skills;
 
 import java.util.ArrayList;
 
-public class ChartComponent extends Component {
+public class ExperienceComponent extends Component {
     public static final int XP_STEP = 50;
-
-    public ChartComponent() {
-    }
 
     @Override
     public void onLoad() {
@@ -21,8 +18,17 @@ public class ChartComponent extends Component {
         registerEvent(DeathEvent.class, this::onDeath);
     }
 
+    @Override
+    public void onUnload() {
+        // Nothing to do
+    }
+
     private void onGiveExpToPlayer(GiveExpToPlayerEvent event) {
         event.getPlayer().getStats().addXp(event.getSkill(), event.getExp());
+    }
+
+    private void onDeath(DeathEvent event) {
+        resetExp(event.getPlayer());
     }
 
     private void resetExp(IPlayer player) {
@@ -31,14 +37,5 @@ public class ChartComponent extends Component {
          for (int i = 0; i < skills.size(); i++) {
              player.getStats().setXp(skills.get(i), 0);
          }
-    }
-
-    private void onDeath(DeathEvent event) {
-        resetExp(event.getPlayer());
-    }
-
-    @Override
-    public void onUnload() {
-        // Nothing to do
     }
 }

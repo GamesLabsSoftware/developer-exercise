@@ -12,9 +12,11 @@ import net.gameslabs.model.InventorySlot;
 import java.util.ArrayList;
 
 public class InventoryComponent extends Component implements IInventory {
+    private final String id;
     private final Inventory inventory;
 
-    public InventoryComponent(int numSlots, int slotSize) {
+    public InventoryComponent(String playerId, int numSlots, int slotSize) {
+        this.id = playerId;
         this.inventory = new Inventory(numSlots, slotSize);
     }
 
@@ -34,6 +36,10 @@ public class InventoryComponent extends Component implements IInventory {
         return this.inventory.toString();
     }
 
+    public String getId() {
+        return this.id;
+    }
+
     public ArrayList<InventorySlot> getSlots() {
         return this.inventory.getSlots();
     }
@@ -44,7 +50,7 @@ public class InventoryComponent extends Component implements IInventory {
         boolean isInvalidEvent = event == null || event.getItem() == null || event.getCount() <= 0;
         if (isInvalidEvent) {
             event.setCancelled(true);
-        } else {
+        } else if (event.getInventoryId() == this.id) {
             boolean success = this.inventory.tryDropItem(event.getItem(), event.getCount());
             if (!success) {
                 Helper.log("ERROR: Failed to drop item");
@@ -57,7 +63,7 @@ public class InventoryComponent extends Component implements IInventory {
         boolean isInvalidEvent = event == null || event.getItem() == null || event.getCount() <= 0;
         if (isInvalidEvent) {
             event.setCancelled(true);
-        } else {
+        } else if (event.getInventoryId() == this.id) {
             boolean success = this.inventory.tryPickupItem(event.getItem(), event.getCount());
             if (!success) {
                 Helper.log("ERROR: Failed to pickup item");
@@ -67,6 +73,8 @@ public class InventoryComponent extends Component implements IInventory {
     }
 
     private void onDeath(DeathEvent event) {
-        this.inventory.dropAllItems();
+        if (event.getPlayer().getInventory().getId() == this.id) {
+            this.inventory.dropAllItems();
+        }
     }
 }

@@ -3,7 +3,6 @@ package net.gameslabs.model;
 import net.gameslabs.api.Component;
 import net.gameslabs.api.ComponentRegistry;
 import net.gameslabs.api.IPlayer;
-import net.gameslabs.components.ChartComponent;
 import net.gameslabs.events.DropItemEvent;
 import net.gameslabs.events.GatherEvent;
 import net.gameslabs.events.GiveExpToPlayerEvent;
@@ -23,7 +22,6 @@ public class Engine {
         MAIN_PLAYER = mainPlayer;
 
         components.forEach(REGISTRY::registerComponent);
-        REGISTRY.registerComponent(new ChartComponent());
         REGISTRY.load();
     }
 
@@ -38,17 +36,18 @@ public class Engine {
         REGISTRY.sendEvent(new GiveExpToPlayerEvent(MAIN_PLAYER, Skills.CONSTRUCTION, 25));
         REGISTRY.sendEvent(new GiveExpToPlayerEvent(MAIN_PLAYER, Skills.EXPLORATION, 25));
 
-        REGISTRY.sendEvent(new PickupItemEvent(new CoalOre(), 67));
-        REGISTRY.sendEvent(new PickupItemEvent(new TinOre(), 67));
-        REGISTRY.sendEvent(new PickupItemEvent(new RuniteOre(), 2));
-        REGISTRY.sendEvent(new PickupItemEvent(new Item(), 67));
+        String mainPlayerInv = MAIN_PLAYER.getInventory().getId();
+        REGISTRY.sendEvent(new PickupItemEvent(mainPlayerInv, new CoalOre(), 67));
+        REGISTRY.sendEvent(new PickupItemEvent(mainPlayerInv, new TinOre(), 67));
+        REGISTRY.sendEvent(new PickupItemEvent(mainPlayerInv, new RuniteOre(), 2));
+        REGISTRY.sendEvent(new PickupItemEvent(mainPlayerInv, new Item(), 67));
 
-        REGISTRY.sendEvent(new DropItemEvent(new TinOre(), 5));
-        REGISTRY.sendEvent(new DropItemEvent(new RuniteOre(), 10));
+        REGISTRY.sendEvent(new DropItemEvent(mainPlayerInv, new TinOre(), 5));
+        REGISTRY.sendEvent(new DropItemEvent(mainPlayerInv, new RuniteOre(), 10));
 
-        REGISTRY.sendEvent(new GatherEvent(new TinOre(), MAIN_PLAYER));
-        REGISTRY.sendEvent(new GatherEvent(new CoalOre(), MAIN_PLAYER));
-        REGISTRY.sendEvent(new GatherEvent(new CoalOre(), MAIN_PLAYER));
+        REGISTRY.sendEvent(new GatherEvent(MAIN_PLAYER, new TinOre()));
+        REGISTRY.sendEvent(new GatherEvent(MAIN_PLAYER, new CoalOre()));
+        REGISTRY.sendEvent(new GatherEvent(MAIN_PLAYER, new CoalOre()));
     }
 
     private void writeOutput() {

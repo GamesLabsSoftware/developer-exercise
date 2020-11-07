@@ -9,16 +9,16 @@ import net.gameslabs.model.Stats;
 import java.util.Objects;
 
 public class PlayerComponent extends Component implements IPlayer {
-    private String id;
-    private String name;
+    private final String id;
+    private final String name;
 
     private static final int MAXIMUM_HEALTH = 100;
     private static final int NUM_INVENTORY_SLOTS = 37;
     private static final int INVENTORY_SLOT_SIZE = 64;
 
     private Stats stats;
-    private HealthComponent health = new HealthComponent(MAXIMUM_HEALTH);
-    private InventoryComponent inventory = new InventoryComponent(NUM_INVENTORY_SLOTS, INVENTORY_SLOT_SIZE);
+    private InventoryComponent inventory;
+    private HealthComponent health;
 
     private PlayerComponent(String id, String name) {
         this.id = id;
@@ -62,7 +62,7 @@ public class PlayerComponent extends Component implements IPlayer {
     @Override
     public Stats getStats() {
         if (this.stats == null) {
-            this.stats = new Stats();
+            this.stats = new Stats(this.id + "-stats");
         }
 
         return this.stats;
@@ -70,11 +70,17 @@ public class PlayerComponent extends Component implements IPlayer {
 
     @Override
     public IInventory getInventory() {
+        if (this.inventory == null) {
+            this.inventory = new InventoryComponent(this.id + "-inventory", NUM_INVENTORY_SLOTS, INVENTORY_SLOT_SIZE);
+        }
         return this.inventory;
     }
 
     @Override
     public IHealth getHealth() {
+        if (this.health == null) {
+            this.health = new HealthComponent(this.id + "-health", MAXIMUM_HEALTH);
+        }
         return this.health;
     }
 

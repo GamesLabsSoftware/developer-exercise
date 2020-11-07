@@ -36,7 +36,7 @@ public class MiningComponent extends Component {
 
     private void gatherItem(IPlayer player, IGatherable item) {
         //Give the player items and exp
-        send(new PickupItemEvent((Item)item, item.getGatherAmount()));
+        send(new PickupItemEvent(player.getInventory().getId(), (Item)item, item.getGatherAmount()));
         send(new GiveExpToPlayerEvent(player, item.getRequiredSkill(), item.getExperience()));
     }
 }

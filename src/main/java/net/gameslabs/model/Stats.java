@@ -1,14 +1,16 @@
 package net.gameslabs.model;
 
-import net.gameslabs.components.ChartComponent;
+import assignment.components.ExperienceComponent;
 
 import java.util.EnumMap;
 import java.util.Map;
 
 public class Stats {
-    private Map<Skills, Integer> experience;
+    private final String id;
+    private final Map<Skills, Integer> experience;
 
-    public Stats() {
+    public Stats(String id) {
+        this.id = id;
         experience = new EnumMap<>(Skills.class);
     }
 
@@ -23,7 +25,7 @@ public class Stats {
     }
 
     public static int getLevelFromXp(int xp) {
-        return 1 + Math.floorDiv(xp, ChartComponent.XP_STEP);
+        return 1 + Math.floorDiv(xp, ExperienceComponent.XP_STEP);
     }
 
     public int getXp(Skills skill) {

@@ -39,7 +39,7 @@ public class Checker {
             throw new FailedCheck("Slot 2 should have 62 item");
         }
 
-        REGISTRY.sendEvent(new PickupItemEvent(new CoalOre(), 10));
+        REGISTRY.sendEvent(new PickupItemEvent(MAIN_PLAYER.getInventory().getId(), new CoalOre(), 10));
 
         if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 64) {
             throw new FailedCheck("Slot 0 should have 64 items");
@@ -51,7 +51,7 @@ public class Checker {
             throw new FailedCheck("Slot 2 should have 62 item");
         }
 
-        REGISTRY.sendEvent(new PickupItemEvent(new RuniteOre(), 100));
+        REGISTRY.sendEvent(new PickupItemEvent(MAIN_PLAYER.getInventory().getId(), new RuniteOre(), 100));
 
         if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 64) {
             throw new FailedCheck("Slot 0 should have 64 items");
@@ -75,7 +75,7 @@ public class Checker {
             throw new FailedCheck("Slot 2 should have 62 item");
         }
 
-        REGISTRY.sendEvent(new DropItemEvent(new CoalOre(), 65));
+        REGISTRY.sendEvent(new DropItemEvent(MAIN_PLAYER.getInventory().getId(), new CoalOre(), 65));
 
         if (MAIN_PLAYER.getInventory().getSlot(0).getCount() != 0) {
             throw new FailedCheck("Slot 0 should have 0 items");
@@ -105,7 +105,7 @@ public class Checker {
 
         int expectedLevel = Stats.getLevelFromXp((new RuniteOre()).getExperience() * mineAmount + MAIN_PLAYER.getStats().getXp(Skills.MINING));
         for (int i = 0; i < mineAmount; i++) {
-            REGISTRY.sendEvent(new GatherEvent(new RuniteOre(), MAIN_PLAYER));
+            REGISTRY.sendEvent(new GatherEvent(MAIN_PLAYER, new RuniteOre()));
         }
         int actualLevel = MAIN_PLAYER.getStats().getLevel(Skills.MINING);
         if (actualLevel != expectedLevel) throw new FailedCheck("ExpectedLevel: " + expectedLevel + "; ActualLevel: " + actualLevel);

@@ -7,7 +7,7 @@ import net.gameslabs.model.IGatherable;
 public class GatherEvent extends PlayerEvent {
     IGatherable item;
 
-    public GatherEvent(IGatherable item, IPlayer player) {
+    public GatherEvent(IPlayer player, IGatherable item) {
         super(player);
         this.item = item;
     }

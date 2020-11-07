@@ -4,4 +4,5 @@ public interface IHealth {
     int getCurrentHealth();
     int getMissingHealth();
     int getMaxHealth();
+    String getId();
 }
