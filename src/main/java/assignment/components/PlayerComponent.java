@@ -17,8 +17,8 @@ public class PlayerComponent extends Component implements IPlayer {
     private static final int INVENTORY_SLOT_SIZE = 64;
 
     private Stats stats;
-    private InventoryComponent inventory;
-    private HealthComponent health;
+    private IInventory inventory;
+    private IHealth health;
 
     private PlayerComponent(String id, String name) {
         this.id = id;

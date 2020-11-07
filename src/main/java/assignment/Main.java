@@ -11,6 +11,6 @@ public class Main {
         LOADER.addExpMultiplierComponent();
         LOADER.addMiningComponent();
 
-        new Engine(LOADER.getMainPlayer(), LOADER.getComponents()).run();
+        new Engine(LOADER.getPlayers(), LOADER.getComponents()).run();
     }
 }

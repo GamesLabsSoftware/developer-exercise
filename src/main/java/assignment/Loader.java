@@ -3,12 +3,15 @@ package assignment;
 import assignment.components.*;
 import net.gameslabs.api.Component;
 import assignment.components.ExperienceComponent;
+import net.gameslabs.api.IPlayer;
+import net.gameslabs.model.Players;
 import net.gameslabs.model.Skills;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Loader {
-    private static PlayerComponent MAIN_PLAYER;
+    private static HashMap<Players, IPlayer> PLAYERS = new HashMap<>();
     private static final ArrayList<Component> COMPONENTS = new ArrayList<>();
 
     public static void addExperienceComponent() {
@@ -16,8 +19,8 @@ public class Loader {
     }
 
     public static void addPlayerComponents() {
-        MAIN_PLAYER = addPlayer("nardnob");
-        addPlayer("Mimiscout");
+        PLAYERS.put(Players.NARDNOB, addPlayer("nardnob"));
+        PLAYERS.put(Players.MIMISCOUT, addPlayer("Mimiscout"));
     }
 
     public static void addExpMultiplierComponent() {
@@ -28,8 +31,8 @@ public class Loader {
         COMPONENTS.add(new MiningComponent()); //MiningComponent - allows mining IGatherable items with the GatherEvent
     }
 
-    public static PlayerComponent getMainPlayer() {
-        return MAIN_PLAYER;
+    public static HashMap<Players, IPlayer> getPlayers() {
+        return PLAYERS;
     }
 
     public static ArrayList<Component> getComponents() {

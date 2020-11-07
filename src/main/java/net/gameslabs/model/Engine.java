@@ -1,5 +1,6 @@
 package net.gameslabs.model;
 
+import assignment.components.PlayerComponent;
 import net.gameslabs.api.Component;
 import net.gameslabs.api.ComponentRegistry;
 import net.gameslabs.api.IPlayer;
@@ -12,49 +13,45 @@ import net.gameslabs.model.items.RuniteOre;
 import net.gameslabs.model.items.TinOre;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Engine {
     protected final ComponentRegistry REGISTRY;
-    private final IPlayer MAIN_PLAYER;
+    private final HashMap<Players, IPlayer> PLAYERS;
 
-    public Engine(IPlayer mainPlayer, ArrayList<Component> components) {
+    public Engine(HashMap<Players, IPlayer> players, ArrayList<Component> components) {
+        PLAYERS = players;
+
         REGISTRY = new ComponentRegistry();
-        MAIN_PLAYER = mainPlayer;
-
         components.forEach(REGISTRY::registerComponent);
         REGISTRY.load();
     }
 
     public final void run() {
-        simulateEvents();
-        Checker.checkAll(REGISTRY, MAIN_PLAYER); //test functionality
-        writeOutput();
+        simulateGameRun(PLAYERS.get(Players.NARDNOB));
+        simulateGameRun(PLAYERS.get(Players.MIMISCOUT));
+        Checker.checkAll(REGISTRY, PLAYERS.get(Players.NARDNOB)); //test functionality
+        Checker.checkAll(REGISTRY, PLAYERS.get(Players.MIMISCOUT)); //test functionality
+        Helper.logPlayer(PLAYERS.get(Players.NARDNOB));
+        Helper.logPlayer(PLAYERS.get(Players.MIMISCOUT));
         REGISTRY.unload();
     }
 
-    private void simulateEvents() {
-        REGISTRY.sendEvent(new GiveExpToPlayerEvent(MAIN_PLAYER, Skills.CONSTRUCTION, 25));
-        REGISTRY.sendEvent(new GiveExpToPlayerEvent(MAIN_PLAYER, Skills.EXPLORATION, 25));
+    private void simulateGameRun(IPlayer player) {
+        REGISTRY.sendEvent(new GiveExpToPlayerEvent(player, Skills.CONSTRUCTION, 25));
+        REGISTRY.sendEvent(new GiveExpToPlayerEvent(player, Skills.EXPLORATION, 25));
 
-        String mainPlayerInv = MAIN_PLAYER.getInventory().getId();
-        REGISTRY.sendEvent(new PickupItemEvent(mainPlayerInv, new CoalOre(), 67));
-        REGISTRY.sendEvent(new PickupItemEvent(mainPlayerInv, new TinOre(), 67));
-        REGISTRY.sendEvent(new PickupItemEvent(mainPlayerInv, new RuniteOre(), 2));
-        REGISTRY.sendEvent(new PickupItemEvent(mainPlayerInv, new Item(), 67));
+        String inventory = player.getInventory().getId();
+        REGISTRY.sendEvent(new PickupItemEvent(inventory, new CoalOre(), 67));
+        REGISTRY.sendEvent(new PickupItemEvent(inventory, new TinOre(), 67));
+        REGISTRY.sendEvent(new PickupItemEvent(inventory, new RuniteOre(), 2));
+        REGISTRY.sendEvent(new PickupItemEvent(inventory, new Item(), 67));
 
-        REGISTRY.sendEvent(new DropItemEvent(mainPlayerInv, new TinOre(), 5));
-        REGISTRY.sendEvent(new DropItemEvent(mainPlayerInv, new RuniteOre(), 10));
+        REGISTRY.sendEvent(new DropItemEvent(inventory, new TinOre(), 5));
+        REGISTRY.sendEvent(new DropItemEvent(inventory, new RuniteOre(), 10));
 
-        REGISTRY.sendEvent(new GatherEvent(MAIN_PLAYER, new TinOre()));
-        REGISTRY.sendEvent(new GatherEvent(MAIN_PLAYER, new CoalOre()));
-        REGISTRY.sendEvent(new GatherEvent(MAIN_PLAYER, new CoalOre()));
-    }
-
-    private void writeOutput() {
-        Helper.log(MAIN_PLAYER);
-        Helper.logSkill(REGISTRY, MAIN_PLAYER, "CONSTRUCTION", Skills.CONSTRUCTION);
-        Helper.logSkill(REGISTRY, MAIN_PLAYER, "EXPLORATION", Skills.EXPLORATION);
-        Helper.logSkill(REGISTRY, MAIN_PLAYER, "MINING", Skills.MINING);
-        Helper.log(MAIN_PLAYER.getInventory());
+        REGISTRY.sendEvent(new GatherEvent(player, new TinOre()));
+        REGISTRY.sendEvent(new GatherEvent(player, new CoalOre()));
+        REGISTRY.sendEvent(new GatherEvent(player, new CoalOre()));
     }
 }
