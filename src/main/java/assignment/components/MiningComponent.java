@@ -21,19 +21,17 @@ public class MiningComponent extends Component {
 
     private void onGather(GatherEvent event) {
         //Verify we are dealing with the mining skill
-        if (event.getItem().getRequiredSkill() != Skills.MINING) {
-            return;
+        if (event.getItem().getRequiredSkill() == Skills.MINING) {
+            int playerLevel = event.getPlayer().getStats().getLevel(event.getItem().getRequiredSkill());
+
+            //Don't have required mining level
+            if (playerLevel < event.getItem().getRequiredLevel()) {
+                event.setCancelled(true);
+                return;
+            }
+
+            gatherItem(event.getPlayer(), event.getItem());
         }
-
-        int playerLevel = event.getPlayer().getStats().getLevel(event.getItem().getRequiredSkill());
-
-        //Don't have required mining level
-        if (playerLevel < event.getItem().getRequiredLevel()) {
-            event.setCancelled(true);
-            return;
-        }
-
-        gatherItem(event.getPlayer(), event.getItem());
     }
 
     private void gatherItem(IPlayer player, IGatherable item) {
