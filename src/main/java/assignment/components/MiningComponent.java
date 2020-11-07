@@ -22,7 +22,6 @@ public class MiningComponent extends Component {
     private void onGather(GatherEvent event) {
         //Verify we are dealing with the mining skill
         if (event.getItem().getRequiredSkill() != Skills.MINING) {
-            event.setCancelled(true);
             return;
         }
 
