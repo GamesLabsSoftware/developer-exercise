@@ -26,24 +26,26 @@ public class InventorySlot {
     public Item getItem() { return this.item; }
     public int getCount() { return this.count; }
 
-    public boolean tryAddingItem(Item inputItem, int count) {
+    public int tryAddingItem(Item inputItem, int count) {
+        int numAdded = 0;
+
         if (!canHold(count)) {
-            return false;
+            return numAdded;
         }
 
         boolean isEmpty = this.item == null;
         if (isEmpty) {
             setItem(inputItem, count);
-            return true;
+            numAdded = count;
         } else {
             boolean slotItemMatchesInput = this.item.equals(inputItem);
             if (slotItemMatchesInput) {
                 addToItem(count);
-                return true;
+                numAdded = count;
             }
         }
 
-        return false;
+        return numAdded;
     }
 
     public boolean hasItem(Item item) {
