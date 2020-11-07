@@ -70,7 +70,6 @@ public class PlayerComponent extends Component implements IPlayer {
 
     @Override
     public IInventory getInventory() {
-
         return this.inventory;
     }
 
