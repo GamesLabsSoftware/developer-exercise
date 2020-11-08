@@ -39,27 +39,35 @@ public class HealthComponent extends Component implements IHealth {
     public String getId() { return this.id; }
 
     private void onDeath(DeathEvent event) {
-        if (event.getPlayer().getHealth().getId() == this.id) {
+        boolean isRelevantEvent = event.getPlayer().getHealth().getId() == this.id;
+
+        if (isRelevantEvent) {
             this.currentHealth = this.maxHealth;
         }
     }
 
     private void onEatFood(EatFoodEvent event) {
-        if (event.getPlayer().getHealth().getId() == this.id) {
+        boolean isRelevantEvent = event.getPlayer().getHealth().getId() == this.id;
+
+        if (isRelevantEvent) {
             this.currentHealth += event.getFood().getHealAmount();
             checkHealthBoundaries(event.getPlayer());
         }
     }
 
     private void onTakeDamage(TakeDamageEvent event) {
-        if (event.getPlayer().getHealth().getId() == this.id) {
+        boolean isRelevantEvent = event.getPlayer().getHealth().getId() == this.id;
+
+        if (isRelevantEvent) {
             this.currentHealth -= event.getDamageAmount();
             checkHealthBoundaries(event.getPlayer());
         }
     }
 
     private void checkHealthBoundaries(IPlayer player) {
-        if (player.getHealth().getId() == this.id) {
+        boolean isRelevantEvent = player.getHealth().getId() == this.id;
+
+        if (isRelevantEvent) {
             this.currentHealth = Math.min(this.currentHealth, this.maxHealth); //handle having too much health
             if (this.currentHealth <= 0) { //handle having too little health
                 send(new DeathEvent(player));

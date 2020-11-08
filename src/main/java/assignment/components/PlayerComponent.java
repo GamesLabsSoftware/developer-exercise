@@ -73,6 +73,7 @@ public class PlayerComponent extends Component implements IPlayer {
         if (this.inventory == null) {
             this.inventory = new InventoryComponent(this.id + "-inventory", NUM_INVENTORY_SLOTS, INVENTORY_SLOT_SIZE);
         }
+
         return this.inventory;
     }
 
@@ -81,6 +82,7 @@ public class PlayerComponent extends Component implements IPlayer {
         if (this.health == null) {
             this.health = new HealthComponent(this.id + "-health", MAXIMUM_HEALTH);
         }
+
         return this.health;
     }
 

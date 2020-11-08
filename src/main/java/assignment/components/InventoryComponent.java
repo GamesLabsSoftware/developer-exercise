@@ -48,9 +48,11 @@ public class InventoryComponent extends Component implements IInventory {
 
     private void onDropItem(DropItemEvent event) {
         boolean isInvalidEvent = event == null || event.getItem() == null || event.getCount() <= 0;
+        boolean isRelevantEvent = event.getInventoryId() == this.id;
+
         if (isInvalidEvent) {
             event.setCancelled(true);
-        } else if (event.getInventoryId() == this.id) {
+        } else if (isRelevantEvent) {
             boolean success = this.inventory.tryDropItem(event.getItem(), event.getCount());
             if (!success) {
                 Helper.log("INFO: Failed to drop item.");
@@ -61,9 +63,11 @@ public class InventoryComponent extends Component implements IInventory {
 
     private void onPickupItem(PickupItemEvent event) {
         boolean isInvalidEvent = event == null || event.getItem() == null || event.getCount() <= 0;
+        boolean isRelevantEvent = event.getInventoryId() == this.id;
+
         if (isInvalidEvent) {
             event.setCancelled(true);
-        } else if (event.getInventoryId() == this.id) {
+        } else if (isRelevantEvent) {
             boolean success = this.inventory.tryPickupItem(event.getItem(), event.getCount());
             if (!success) {
                 Helper.log("INFO: Failed to pickup item.");
@@ -73,7 +77,9 @@ public class InventoryComponent extends Component implements IInventory {
     }
 
     private void onDeath(DeathEvent event) {
-        if (event.getPlayer().getInventory().getId() == this.id) {
+        boolean isRelevantEvent = event.getPlayer().getInventory().getId() == this.id;
+
+        if (isRelevantEvent) {
             this.inventory.dropAllItems();
         }
     }
