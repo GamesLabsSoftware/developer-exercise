@@ -53,7 +53,7 @@ public class InventoryComponent extends Component implements IInventory {
         } else if (event.getInventoryId() == this.id) {
             boolean success = this.inventory.tryDropItem(event.getItem(), event.getCount());
             if (!success) {
-                Helper.log("ERROR: Failed to drop item");
+                Helper.log("INFO: Failed to drop item.");
                 event.setCancelled(true);
             }
         }
@@ -66,7 +66,7 @@ public class InventoryComponent extends Component implements IInventory {
         } else if (event.getInventoryId() == this.id) {
             boolean success = this.inventory.tryPickupItem(event.getItem(), event.getCount());
             if (!success) {
-                Helper.log("ERROR: Failed to pickup item");
+                Helper.log("INFO: Failed to pickup item.");
                 event.setCancelled(true);
             }
         }
