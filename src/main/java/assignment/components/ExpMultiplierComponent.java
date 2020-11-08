@@ -23,17 +23,17 @@ public class ExpMultiplierComponent extends Component {
         registerEvent(GiveExpToPlayerEvent.class, this::onGiveExp);
     }
 
+    @Override
+    public void onUnload() {
+    }
+
     private void onGiveExp(GiveExpToPlayerEvent event) {
         boolean applyToAllSkills = this.skill == null;
         boolean isRelevantEvent = event.getSkill() == this.skill;
-        
+
         if(applyToAllSkills || isRelevantEvent) {
             int exp = (int)Math.ceil(event.getExp() * this.multiplier);
             event.setExp(exp);
         }
-    }
-
-    @Override
-    public void onUnload() {
     }
 }

@@ -26,6 +26,14 @@ public class PlayerComponent extends Component implements IPlayer {
     }
 
     @Override
+    public void onLoad() {
+    }
+
+    @Override
+    public void onUnload() {
+    }
+
+    @Override
     public String getId() {
         return id;
     }
@@ -84,13 +92,5 @@ public class PlayerComponent extends Component implements IPlayer {
         }
 
         return this.health;
-    }
-
-    @Override
-    public void onLoad() {
-    }
-
-    @Override
-    public void onUnload() {
     }
 }

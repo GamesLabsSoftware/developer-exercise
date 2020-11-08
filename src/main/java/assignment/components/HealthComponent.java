@@ -23,20 +23,8 @@ public class HealthComponent extends Component implements IHealth {
     }
 
     @Override
-    public void onUnload() {}
-
-    @Override
-    public int getCurrentHealth() { return this.currentHealth; }
-
-    @Override
-    public int getMaxHealth() { return this.maxHealth; }
-
-    @Override
-    public int getMissingHealth() {
-        return this.maxHealth - this.currentHealth;
+    public void onUnload() {
     }
-
-    public String getId() { return this.id; }
 
     private void onDeath(DeathEvent event) {
         boolean isRelevantEvent = event.getPlayer().getHealth().getId() == this.id;
@@ -62,6 +50,25 @@ public class HealthComponent extends Component implements IHealth {
             this.currentHealth -= event.getDamageAmount();
             checkHealthBoundaries(event.getPlayer());
         }
+    }
+
+    @Override
+    public int getCurrentHealth() {
+        return this.currentHealth;
+    }
+
+    @Override
+    public int getMaxHealth() {
+        return this.maxHealth;
+    }
+
+    @Override
+    public int getMissingHealth() {
+        return this.maxHealth - this.currentHealth;
+    }
+
+    public String getId() {
+        return this.id;
     }
 
     private void checkHealthBoundaries(IPlayer player) {

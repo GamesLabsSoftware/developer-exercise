@@ -31,21 +31,6 @@ public class InventoryComponent extends Component implements IInventory {
     public void onUnload() {
     }
 
-    @Override
-    public String toString() {
-        return this.inventory.toString();
-    }
-
-    public String getId() {
-        return this.id;
-    }
-
-    public ArrayList<InventorySlot> getSlots() {
-        return this.inventory.getSlots();
-    }
-
-    public InventorySlot getSlot(int index) { return this.inventory.getSlot(index); }
-
     private void onDropItem(DropItemEvent event) {
         boolean isInvalidEvent = event == null || event.getItem() == null || event.getCount() <= 0;
         boolean isRelevantEvent = event.getInventoryId() == this.id;
@@ -82,5 +67,22 @@ public class InventoryComponent extends Component implements IInventory {
         if (isRelevantEvent) {
             this.inventory.dropAllItems();
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.inventory.toString();
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public ArrayList<InventorySlot> getSlots() {
+        return this.inventory.getSlots();
+    }
+
+    public InventorySlot getSlot(int index) {
+        return this.inventory.getSlot(index);
     }
 }

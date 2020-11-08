@@ -20,7 +20,6 @@ public class ExperienceComponent extends Component {
 
     @Override
     public void onUnload() {
-        // Nothing to do
     }
 
     private void onGiveExpToPlayer(GiveExpToPlayerEvent event) {
