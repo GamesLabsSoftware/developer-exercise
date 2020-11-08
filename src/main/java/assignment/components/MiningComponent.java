@@ -24,13 +24,12 @@ public class MiningComponent extends Component {
         if (event.getItem().getRequiredSkill() == Skills.MINING) {
             int playerLevel = event.getPlayer().getStats().getLevel(event.getItem().getRequiredSkill());
 
-            //Don't have required mining level
-            if (playerLevel < event.getItem().getRequiredLevel()) {
+            boolean hasRequiredMiningLevel = playerLevel >= event.getItem().getRequiredLevel();
+            if (hasRequiredMiningLevel) {
+                gatherItem(event.getPlayer(), event.getItem());
+            } else {
                 event.setCancelled(true);
-                return;
             }
-
-            gatherItem(event.getPlayer(), event.getItem());
         }
     }
 
