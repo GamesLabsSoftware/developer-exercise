@@ -20,8 +20,8 @@ public class MiningComponent extends Component {
     }
 
     private void onGather(GatherEvent event) {
-        //Verify we are dealing with the mining skill
-        if (event.getItem().getRequiredSkill() == Skills.MINING) {
+        boolean isMiningEvent = event.getItem().getRequiredSkill() == Skills.MINING;
+        if (isMiningEvent) {
             int playerLevel = event.getPlayer().getStats().getLevel(event.getItem().getRequiredSkill());
 
             boolean hasRequiredMiningLevel = playerLevel >= event.getItem().getRequiredLevel();
