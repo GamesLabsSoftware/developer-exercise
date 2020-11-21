@@ -1,13 +1,18 @@
 package assignment;
 
-import assignment.components.MyXPBoosterComponent;
-import net.gameslabs.model.Assignment;
+import net.gameslabs.model.Engine;
 
 public class Main {
+    // Why do you create a static instance that has no function on its own?
+   // private static final Loader LOADER = new Loader();
 
     public static void main(String[] args) {
-        new Assignment(
-            new MyXPBoosterComponent()
-        ).run();
+        // Changing to static references
+        Loader.addExperienceComponent();
+        Loader.addPlayerComponents();
+        Loader.addExpMultiplierComponent();
+        Loader.addMiningComponent();
+
+        new Engine(Loader.getPlayers(), Loader.getComponents()).run();
     }
 }
