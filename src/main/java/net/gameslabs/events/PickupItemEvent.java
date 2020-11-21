@@ -4,8 +4,9 @@ import net.gameslabs.api.InventoryEvent;
 import net.gameslabs.model.Item;
 
 public class PickupItemEvent extends InventoryEvent {
-    Item item;
-    int count;
+    // Always declare privacy/protection of fields
+    private Item item;
+    private int count;
 
     public PickupItemEvent(String inventoryId, Item item, int count) {
         super(inventoryId);

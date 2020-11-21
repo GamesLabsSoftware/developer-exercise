@@ -8,6 +8,8 @@ import net.gameslabs.model.Stats;
 
 import java.util.Objects;
 
+// A component is a piece of logic code, here it seems like it has no logic code and is just a model class
+// So this class shouldn't be a component at all
 public class PlayerComponent extends Component implements IPlayer {
     private final String id;
     private final String name;

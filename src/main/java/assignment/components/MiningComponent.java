@@ -20,7 +20,8 @@ public class MiningComponent extends Component {
     }
 
     private void onGather(GatherEvent event) {
-        boolean isRelevantEvent = event.getItem().getRequiredSkill() == Skills.MINING;
+        // Can be argued on, but use .equals everywhere for consistency + IDE will write most of it for you
+        boolean isRelevantEvent = event.getItem().getRequiredSkill().equals(Skills.MINING);
 
         if (isRelevantEvent) {
             int playerLevel = event.getPlayer().getStats().getLevel(event.getItem().getRequiredSkill());
@@ -36,6 +37,7 @@ public class MiningComponent extends Component {
 
     private void gatherItem(IPlayer player, IGatherable item) {
         //Give the player items and exp
+        // Do you give xp even if the inventory is full? You shouldn't
         send(new PickupItemEvent(player.getInventory().getId(), (Item)item, item.getGatherAmount()));
         send(new GiveExpToPlayerEvent(player, item.getRequiredSkill(), item.getExperience()));
     }

@@ -1,11 +1,14 @@
 package net.gameslabs.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
+// This is supposed to be a MODEL class, it should have 0 logic. model package = business classes
 public class Inventory {
     private final int numSlots;
     private final int slotSize;
-    private ArrayList<InventorySlot> slots;
+    // Same here, never use the implementation but the interface and all followings ArrayList types
+    private List<InventorySlot> slots;
 
     public Inventory(int numSlots, int slotSize) {
         this.numSlots = numSlots;
@@ -13,8 +16,8 @@ public class Inventory {
         this.slots = createEmptySlots();
     }
 
-    private ArrayList<InventorySlot> createEmptySlots() {
-        ArrayList<InventorySlot> emptySlots = new ArrayList<InventorySlot>();
+    private List<InventorySlot> createEmptySlots() {
+        List<InventorySlot> emptySlots = new ArrayList<>();
         for (int i = 0; i < this.numSlots; i++) {
             emptySlots.add(new InventorySlot(this.slotSize));
         }
@@ -32,7 +35,7 @@ public class Inventory {
         return out;
     }
 
-    public ArrayList<InventorySlot> getSlots() {
+    public List<InventorySlot> getSlots() {
         return this.slots;
     }
 
@@ -44,6 +47,7 @@ public class Inventory {
         this.slots = createEmptySlots();
     }
 
+    // Should be put in the component instead
     public boolean tryPickupItem(Item item, int numToAdd) {
         while (numToAdd > 0) {
             int numAdded = tryAddingItem(item, numToAdd);
@@ -59,6 +63,7 @@ public class Inventory {
         return true;
     }
 
+    // Should be put in the component instead
     public boolean tryDropItem(Item item, int numToDrop) {
         while (numToDrop > 0) {
             int numDropped = tryDroppingItem(item, numToDrop);
@@ -74,19 +79,25 @@ public class Inventory {
         return true;
     }
 
+    // Should be put in the component instead. We should have an addItem and that's it
     private int tryAddingItem(Item item, int numToAdd) {
-        int numAdded = 0;
+        // No need to assign it here if you don't use it here
+        //int numAdded = 0;
+
+        // <!> A method should only have one or two returns max for better readability
 
         if (numToAdd <= 0) {
             Helper.log("Can't add that many to inventory!");
-            return numAdded = 0;
+            // Don't return an assignement
+            return 0;
         }
 
         InventorySlot slot = tryGetCompatibleSlot(item);
         if (slot == null) {
-            return numAdded = 0;
+            return 0;
         }
 
+        int numAdded; // put it here
         if (numToAdd > slot.remainingCapacity()) {
             numAdded = slot.tryAddingItem(item, slot.remainingCapacity());
         } else {
@@ -96,19 +107,23 @@ public class Inventory {
         return numAdded;
     }
 
+    // Should be put in the component instead
     public int tryDroppingItem(Item item, int numToDrop) {
-        int numDropped = 0;
+        // Same thing here with numDropped
+
+        // <!> A method should only have one or two returns max for better readability
 
         if (numToDrop <= 0) {
             Helper.log("Can't drop that many from inventory!");
-            return numDropped = 0;
+            return 0;
         }
 
         InventorySlot slot = tryGetSlotContainingItem(item);
         if (slot == null) {
-            return numDropped = 0;
+            return 0;
         }
 
+        int numDropped;
         if (numToDrop > slot.getCount()) {
             numDropped = slot.getCount();
             slot.drop(numDropped);
@@ -120,10 +135,11 @@ public class Inventory {
         return numDropped;
     }
 
+    // Should be put in the component instead
+    // + never use null really. Use optionals instead. Null shouldn't be used anywhere
     private InventorySlot tryGetSlotContainingItem(Item item) {
-        for (int i = 0; i < slots.size(); i++) {
-            InventorySlot slot = slots.get(i);
-
+        // You never use the iteration variable, use a foreach
+        for (InventorySlot slot : slots) {
             if (slot.hasItem(item)) {
                 return slot;
             }
@@ -132,18 +148,21 @@ public class Inventory {
         return null;
     }
 
+    // Should be put in the component instead
+    // + never use null really. Use optionals instead. Null shouldn't be used anywhere
     private InventorySlot tryGetCompatibleSlot(Item item) {
         //Check for a non-full slot matching the item
-        for (int i = 0; i < slots.size(); i++) {
-            InventorySlot slot = slots.get(i);
+
+        // You never use the iteration variable, use a foreach
+        for (InventorySlot slot : slots) {
             if (!slot.isEmpty() && slot.remainingCapacity() > 0 && slot.getItem().equals(item)) {
                 return slot;
             }
         }
 
         //Check for an empty slot
-        for (int i = 0; i < slots.size(); i++) {
-            InventorySlot slot = slots.get(i);
+        // You never use the iteration variable, use a foreach
+        for (InventorySlot slot : slots) {
             if (slot.isEmpty()) {
                 return slot;
             }

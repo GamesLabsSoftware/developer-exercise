@@ -9,10 +9,13 @@ import net.gameslabs.model.Skills;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Loader {
-    private static HashMap<Players, IPlayer> PLAYERS = new HashMap<>();
-    private static final ArrayList<Component> COMPONENTS = new ArrayList<>();
+    // Same here, use the interfaces
+    private static Map<Players, IPlayer> PLAYERS = new HashMap<>();
+    private static final List<Component> COMPONENTS = new ArrayList<>();
 
     public static void addExperienceComponent() {
         COMPONENTS.add(new ExperienceComponent());
@@ -31,11 +34,11 @@ public class Loader {
         COMPONENTS.add(new MiningComponent()); //MiningComponent - allows mining IGatherable items with the GatherEvent
     }
 
-    public static HashMap<Players, IPlayer> getPlayers() {
+    public static Map<Players, IPlayer> getPlayers() {
         return PLAYERS;
     }
 
-    public static ArrayList<Component> getComponents() {
+    public static List<Component> getComponents() {
         return COMPONENTS;
     }
 
@@ -48,4 +51,6 @@ public class Loader {
 
         return player;
     }
+
+    // How do you remove a player?
 }

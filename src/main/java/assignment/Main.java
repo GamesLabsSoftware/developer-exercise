@@ -3,14 +3,16 @@ package assignment;
 import net.gameslabs.model.Engine;
 
 public class Main {
-    private static final Loader LOADER = new Loader();
+    // Why do you create a static instance that has no function on its own?
+   // private static final Loader LOADER = new Loader();
 
     public static void main(String[] args) {
-        LOADER.addExperienceComponent();
-        LOADER.addPlayerComponents();
-        LOADER.addExpMultiplierComponent();
-        LOADER.addMiningComponent();
+        // Changing to static references
+        Loader.addExperienceComponent();
+        Loader.addPlayerComponents();
+        Loader.addExpMultiplierComponent();
+        Loader.addMiningComponent();
 
-        new Engine(LOADER.getPlayers(), LOADER.getComponents()).run();
+        new Engine(Loader.getPlayers(), Loader.getComponents()).run();
     }
 }

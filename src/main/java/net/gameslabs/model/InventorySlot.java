@@ -2,11 +2,12 @@ package net.gameslabs.model;
 
 public class InventorySlot {
     private int maxSize;
-    private Item item = null;
-    private int count = 0;
+    private Item item;
+    private int count;
 
+    // Use one constructor
     public InventorySlot(int maxSize) {
-        this.maxSize = maxSize;
+        this(maxSize, null, 0);
     }
 
     public InventorySlot(int maxSize, Item item, int count) {
@@ -26,6 +27,7 @@ public class InventorySlot {
     public Item getItem() { return this.item; }
     public int getCount() { return this.count; }
 
+    // This shouldn't me in a model class
     public int tryAddingItem(Item inputItem, int count) {
         int numAdded = 0;
 
@@ -49,7 +51,8 @@ public class InventorySlot {
     }
 
     public boolean hasItem(Item item) {
-        return this.item == null ? false : this.item.equals(item);
+        // expression can be simplified..
+        return this.item != null && this.item.equals(item);
     }
 
     public void drop(int num) {

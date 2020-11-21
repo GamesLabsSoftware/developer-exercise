@@ -5,7 +5,8 @@ import net.gameslabs.api.PlayerEvent;
 import net.gameslabs.model.IGatherable;
 
 public class GatherEvent extends PlayerEvent {
-    IGatherable item;
+    // Always declare privacy/protection of fields
+    private IGatherable item;
 
     public GatherEvent(IPlayer player, IGatherable item) {
         super(player);

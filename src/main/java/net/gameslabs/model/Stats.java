@@ -6,7 +6,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class Stats {
-    private final String id;
+    private final String id;// Un-used
     private final Map<Skills, Integer> experience;
 
     public Stats(String id) {
@@ -20,8 +20,8 @@ public class Stats {
 
     public int getLevel(Skills skill) {
         int skillXp = getXp(skill);
-        int level = getLevelFromXp(skillXp);
-        return level;
+        // Inline a return
+        return getLevelFromXp(skillXp);
     }
 
     public static int getLevelFromXp(int xp) {

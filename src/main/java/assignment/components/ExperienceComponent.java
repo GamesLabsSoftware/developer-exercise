@@ -7,7 +7,7 @@ import net.gameslabs.events.GiveExpToPlayerEvent;
 import net.gameslabs.model.Helper;
 import net.gameslabs.model.Skills;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ExperienceComponent extends Component {
     public static final int XP_STEP = 50;
@@ -31,10 +31,11 @@ public class ExperienceComponent extends Component {
     }
 
     private void resetExp(IPlayer player) {
-         ArrayList<Skills> skills = Helper.getAllSkills();
-
-         for (int i = 0; i < skills.size(); i++) {
-             player.getStats().setXp(skills.get(i), 0);
-         }
+        // Never type by implementation, always prefer the interfacce
+        List<Skills> skills = Helper.getAllSkills();
+        // Use for each when possible (when not using indexes)
+        for (Skills skill : skills) {
+            player.getStats().setXp(skill, 0);
+        }
     }
 }

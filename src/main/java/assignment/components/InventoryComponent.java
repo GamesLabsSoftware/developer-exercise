@@ -32,12 +32,22 @@ public class InventoryComponent extends Component implements IInventory {
     }
 
     private void onDropItem(DropItemEvent event) {
-        boolean isInvalidEvent = event == null || event.getItem() == null || event.getCount() <= 0;
-        boolean isRelevantEvent = event.getInventoryId() == this.id;
+        // Why do you check for null?
+        // An event can never be null and by construction item should never be null neither
+        // Same for count, no one will drop 0 item. Removed that check
+        // And on a side note, you are possibly cancelling a null event ? NPE
+        // I will comment out the code so that you can read it without doing a git blame
 
-        if (isInvalidEvent) {
+        // boolean isInvalidEvent = event == null || event.getItem() == null || event.getCount() <= 0;
+        // Same here, Don't use == for strings
+        boolean isRelevantEvent = event.getInventoryId().equals(this.id);
+
+        /*if (isInvalidEvent) {
             event.setCancelled(true);
-        } else if (isRelevantEvent) {
+        } else */
+        if (isRelevantEvent) {
+            // The inventory component should be the class handling the dropping mechanics. the inventory should be a model,
+            // not a piece of logic code
             boolean success = this.inventory.tryDropItem(event.getItem(), event.getCount());
             if (!success) {
                 Helper.log("INFO: Failed to drop item.");

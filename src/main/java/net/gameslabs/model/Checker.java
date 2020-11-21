@@ -8,6 +8,7 @@ import net.gameslabs.model.items.McChicken;
 import net.gameslabs.model.items.RuniteOre;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Checker {
     private static ComponentRegistry REGISTRY;
@@ -39,7 +40,7 @@ public class Checker {
             throw new FailedCheck("Slot 2 should have 62 item");
         }
 
-        REGISTRY.sendEvent(new PickupItemEvent(PLAYER.getInventory().getId(), new CoalOre(), 10));
+        REGISTRY.sendEvent(new PickupItemEvent(PLAYER.getInventory().getId(), CoalOre.ITEM, 10));
 
         if (PLAYER.getInventory().getSlot(0).getCount() != 64) {
             throw new FailedCheck("Slot 0 should have 64 items");
@@ -75,7 +76,7 @@ public class Checker {
             throw new FailedCheck("Slot 2 should have 62 item");
         }
 
-        REGISTRY.sendEvent(new DropItemEvent(PLAYER.getInventory().getId(), new CoalOre(), 65));
+        REGISTRY.sendEvent(new DropItemEvent(PLAYER.getInventory().getId(), CoalOre.ITEM, 65));
 
         if (PLAYER.getInventory().getSlot(0).getCount() != 0) {
             throw new FailedCheck("Slot 0 should have 0 items");
@@ -139,16 +140,19 @@ public class Checker {
 
     private static void checkDeath() {
         REGISTRY.sendEvent(new DeathEvent(PLAYER));
-        ArrayList<Skills> skills = Helper.getAllSkills();
-        for (int i = 0; i < skills.size(); i++) {
-            if (PLAYER.getStats().getLevel(skills.get(i)) != 1) {
+        // Interface..
+        List<Skills> skills = Helper.getAllSkills();
+        // foreach
+        for (Skills skill : skills) {
+            if (PLAYER.getStats().getLevel(skill) != 1) {
                 throw new FailedCheck("All skills should be 1 after death");
             }
         }
 
-        ArrayList<InventorySlot> slots = PLAYER.getInventory().getSlots();
-        for (int i = 0; i < slots.size(); i++) {
-            if (!slots.get(i).isEmpty()) {
+        // same here
+        List<InventorySlot> slots = PLAYER.getInventory().getSlots();
+        for (InventorySlot slot : slots) {
+            if (!slot.isEmpty()) {
                 throw new FailedCheck("All inventory slots should be empty after death");
             }
         }

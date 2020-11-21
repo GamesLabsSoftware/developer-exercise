@@ -4,6 +4,7 @@ import net.gameslabs.api.IPlayer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Helper {
     public static void log(Object ... arguments) {
@@ -19,6 +20,7 @@ public class Helper {
     }
 
     public static void logSkill(IPlayer player, String skillName, Skills skill) {
+        // use a string builder here
         String out = skillName;
         out += ": Level ";
         out += player.getStats().getLevel(skill);
@@ -29,14 +31,10 @@ public class Helper {
         log(out);
     }
 
-    public static ArrayList<Skills> getAllSkills() {
+    public static List<Skills> getAllSkills() {
         //must be maintained manually for now
-        return new ArrayList<Skills>() {
-            {
-                add(Skills.CONSTRUCTION);
-                add(Skills.EXPLORATION);
-                add(Skills.MINING);
-            }
-        };
+        // You shouldn't use this way to create instances + should it really be an array list when it comes to implementation?
+        // should never be maintained manually neither.
+        return Arrays.asList(Skills.values());
     }
 }

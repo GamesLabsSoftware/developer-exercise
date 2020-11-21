@@ -1,14 +1,27 @@
 package net.gameslabs.model;
 
+// Should have basic fields for re-usability, otherwise have it as an interface and possibly defaults methods
 public class Item implements IItem {
+    private String id;
+    private String name;
+
+    public Item() {
+        this("BASE_ITEM", "BaseItem");
+    }
+
+    public Item(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Override
     public String getId() {
-        return "BASE_ITEM";
+        return id;
     }
 
     @Override
     public String getName() {
-        return "BaseItem";
+        return name;
     }
 
     @Override
