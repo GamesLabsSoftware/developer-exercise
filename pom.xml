@@ -5,6 +5,14 @@
     <artifactId>dev-exercise</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
     <name>GamesLabs-dev-exercise</name>
     <url>https://gameslabs.net</url>
 

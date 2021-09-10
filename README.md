@@ -78,3 +78,11 @@ Here is the list of tasks you need to achieve:
 
 ## Publishing
 Fork this repository and add scipio3000 to the repository. PM scipio3000 with the link to your repository once you are done with the assignment
+
+# New Features
+For this assignment, I have added a Firemaking skill and some basic features. The firemaking event should perform the following:
+* Remove appropriate logs from player inventory on successful burn event
+* Calculate a random burn duration that scales with log type
+* Perform a skill check and cancel the firemaking event if player skill is too low
+
+All related tests have been added and confirmed.
