@@ -14,17 +14,6 @@ public enum Item {
     SHRIMP_BURNT("Burnt Shrimp", false, true);
 
     /**
-     * Item constructor with name and default values.
-     *
-     * @param name Name of the Item.
-     */
-    Item(String name) {
-        this.name = name;
-        this.stackable = true;
-        this.tradable = true;
-    }
-
-    /**
      * Item constructor with name, stackability, and tradability values.
      *
      * @param name      Name of the Item.

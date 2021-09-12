@@ -4,7 +4,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class PlayerStats {
-    private Map<Skill, Integer> xpStats;
+    private final Map<Skill, Integer> xpStats;
 
     public PlayerStats() {
         xpStats = new EnumMap<>(Skill.class);

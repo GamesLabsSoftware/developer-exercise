@@ -8,8 +8,8 @@ import net.gameslabs.model.Item;
  * Event representing the removal of an Item from a Player's inventory.
  */
 public class RemoveItemEvent extends PlayerEvent {
-    private Item item;
-    private int quantity;
+    private final Item item;
+    private final int quantity;
 
     /**
      * RemoveItemEvent constructor with Player scope, Item, and default quantity.

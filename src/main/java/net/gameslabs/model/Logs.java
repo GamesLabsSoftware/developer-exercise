@@ -55,7 +55,6 @@ public enum Logs {
         return firemakingExperienceGranted;
     }
 
-
     /**
      * Returns the Logs' burn duration multiplier.
      *

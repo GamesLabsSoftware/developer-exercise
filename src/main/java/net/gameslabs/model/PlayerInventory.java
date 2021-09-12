@@ -8,7 +8,7 @@ import java.util.Map;
  * inventory grid size/layout.
  */
 public class PlayerInventory {
-    private Map<Item, Integer> inventory;
+    private final Map<Item, Integer> inventory;
 
     /**
      * PlayerInventory default constructor.
@@ -66,7 +66,7 @@ public class PlayerInventory {
      * @return Quantity of the specified Item.
      */
     public int getQuantity(Item item) {
-        return contains(item) ? inventory.get(item) : 0;
+        return contains(item) && inventory.get(item) > 0 ? inventory.get(item) : 0;
     }
 
     /**

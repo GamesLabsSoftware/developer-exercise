@@ -1,0 +1,8 @@
+# Java sources
+*.java          text diff=java
+
+# These files are text and should be normalized (Convert crlf => lf)
+*.xml           text
+
+# Default to normalize to LF if core.autocrlf is not set
+* text=auto

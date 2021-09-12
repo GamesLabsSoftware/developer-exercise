@@ -10,17 +10,6 @@ public enum Skill {
     MINING("Mining", 1);
 
     /**
-     * Skill constructor with name and default multiplier.
-     *
-     * @param name
-     *        Name of the Skill.
-     */
-    Skill(String name) {
-        this.multiplier = 1;
-        this.name = name;
-    }
-
-    /**
      * Skill constructor with name and multiplier.
      *
      * @param name
@@ -33,7 +22,7 @@ public enum Skill {
         this.name = name;
     }
 
-    private int multiplier;
+    private final int multiplier;
     private final String name;
 
     /**

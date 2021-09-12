@@ -8,8 +8,8 @@ import net.gameslabs.model.Item;
  * Event representing the addition of an Item to a Player's inventory.
  */
 public class AddItemEvent extends PlayerEvent {
-    private Item item;
-    private int quantity;
+    private final Item item;
+    private final int quantity;
 
     /**
      * AddItemEvent constructor with Player context, Item, and default quantity.
